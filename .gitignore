@@ -4,5 +4,4 @@
 .DS_Store
 
 # Large unused source/backup assets (not referenced by the site)
-foto kepengurusan/
-staff_jpg_backup/
+_backups/

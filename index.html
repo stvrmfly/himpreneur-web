@@ -318,7 +318,10 @@ section{position:relative;overflow:hidden;}
 }
 .oc-card-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;transform:scale(1.2);transform-origin:top center;}
 .oc-jabatan{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent-ink);margin-bottom:3px;}
-.oc-nama{font-family:'Bricolage Grotesque',serif;font-weight:700;color:var(--text-primary);}
+.oc-nama{font-family:'Bricolage Grotesque',serif;font-weight:700;color:var(--text-primary);line-height:1.2;}
+/* Reserve two lines for names on cards with a division label, so the division
+   text sits at the same height whether the name wraps to one or two lines */
+.oc-card.oc-koor .oc-nama,.oc-card.oc-wakil .oc-nama{min-height:2.4em;}
 .oc-divisi{font-size:11px;color:var(--accent-ink);font-weight:600;margin-top:2px;}
 
 /* Ketua — besar */
@@ -454,7 +457,8 @@ section{position:relative;overflow:hidden;}
 
 /* ── CONTACT ── */
 #contact{background:var(--primary);position:relative;}
-.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* left text centered vertically, right card sized to fit its content so names never wrap */
+.contact-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:80px;align-items:center;}
 .contact-left .section-title{color:var(--text-on-dark);}
 .contact-left .section-subtitle{color:var(--text-on-dark-muted);}
 .contact-card{background:rgba(255,255,255,0.05);border:1px solid rgba(201,169,110,0.2);border-radius:4px;padding:48px 40px;}
@@ -462,7 +466,7 @@ section{position:relative;overflow:hidden;}
 .contact-item:last-child{border-bottom:none;}
 .contact-icon{width:44px;height:44px;border-radius:50%;border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);}
 .contact-info label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:4px;}
-.contact-info span,.contact-info a{font-family:'Hanken Grotesk',sans-serif;font-size:17px;color:rgba(255,255,255,0.8);transition:color 0.2s;}
+.contact-info span,.contact-info a{font-family:'Hanken Grotesk',sans-serif;font-size:17px;color:rgba(255,255,255,0.8);transition:color 0.2s;white-space:nowrap;}
 .contact-info a{display:block;}
 .contact-info a+a{margin-top:6px;}
 .contact-info a:hover{color:var(--accent);}
@@ -502,6 +506,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .profile-grid,.vm-grid,.contact-inner{grid-template-columns:1fr;gap:40px;}
+  .contact-info span,.contact-info a{white-space:normal;}
   .pillars-grid{grid-template-columns:1fr;}
   .pillar-card{padding:28px 24px;}
   .pillar-mascot{width:80px;height:80px;}
@@ -548,7 +553,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
 
 <!-- ══ LOADING SCREEN ══ -->
 <div id="loader">
-  <img src="logo.png" alt="HIMPRENEUR" class="loader-logo" style="width:80px;height:auto;">
+  <img src="assets/logo.png" alt="HIMPRENEUR" class="loader-logo" style="width:80px;height:auto;">
   <div class="loader-text">HIMPRENEUR</div>
   <div class="loader-slogan">To the Move and Beyond</div>
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
@@ -563,7 +568,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
 <!-- ══ NAVBAR ══ -->
 <nav id="navbar">
   <div class="nav-logo">
-    <img src="logo-full.png" alt="HIMPRENEUR BINUS Bandung" onerror="this.style.display='none'">
+    <img src="assets/logo-full.png" alt="HIMPRENEUR BINUS Bandung" onerror="this.style.display='none'">
   </div>
   <ul class="nav-links">
     <li><a href="#profile">Profil</a></li>
@@ -593,7 +598,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
     <div class="hero-logo-wrap">
       <div class="hero-logo">
         <div class="hero-logo-inner">
-          <img src="logo.png" alt="HIMPRENEUR Logo">
+          <img src="assets/logo.png" alt="HIMPRENEUR Logo">
         </div>
       </div>
     </div>
@@ -636,7 +641,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
       <div class="gold-divider center"></div>
     </div>
     <div class="profile-photo fade-in-scale">
-      <img src="kepengurusan/dpi.webp" alt="Dewan Pengurus Inti HIMPRENEUR 2026/2027" loading="lazy">
+      <img src="assets/kepengurusan/dpi.webp" alt="Dewan Pengurus Inti HIMPRENEUR 2026/2027" loading="lazy">
     </div>
     <div class="profile-grid">
       <div class="profile-text fade-in-left">
@@ -854,7 +859,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
       <div class="pillar-card">
         <div class="pillar-mascot">
           <div class="pillar-tooltip">"Bersama kita lebih kuat!"</div>
-          <img src="mascot-community.png" alt="Maskot Community">
+          <img src="assets/mascot-community.png" alt="Maskot Community">
         </div>
         <div class="pillar-text">
           <div class="pillar-number">01</div>
@@ -866,7 +871,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
       <div class="pillar-card">
         <div class="pillar-mascot">
           <div class="pillar-tooltip">"Ide baru setiap hari!"</div>
-          <img src="mascot-innovation.png" alt="Maskot Innovation">
+          <img src="assets/mascot-innovation.png" alt="Maskot Innovation">
         </div>
         <div class="pillar-text">
           <div class="pillar-number">02</div>
@@ -878,7 +883,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
       <div class="pillar-card">
         <div class="pillar-mascot">
           <div class="pillar-tooltip">"Siap menghadapi perubahan!"</div>
-          <img src="mascot-adaptive.png" alt="Maskot Adaptive">
+          <img src="assets/mascot-adaptive.png" alt="Maskot Adaptive">
         </div>
         <div class="pillar-text">
           <div class="pillar-number">03</div>
@@ -890,7 +895,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
       <div class="pillar-card">
         <div class="pillar-mascot">
           <div class="pillar-tooltip">"Kreativitas tanpa batas!"</div>
-          <img src="mascot-creative.png" alt="Maskot Creative">
+          <img src="assets/mascot-creative.png" alt="Maskot Creative">
         </div>
         <div class="pillar-text">
           <div class="pillar-number">04</div>
@@ -942,31 +947,31 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
     <div class="slider-outer fade-in" style="transition-delay:0.15s">
       <div class="slider-track" id="sliderTrack">
         <div class="program-card" role="button" tabindex="0" onclick="openModal(0)">
-          <div class="program-photo"><img src="progja/prog1_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 1</span></div></div>
+          <div class="program-photo"><img src="assets/progja/prog1_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 1</span></div></div>
           <div class="program-body"><span class="program-tag">Edupreneur</span><h4>Binus Business Competition 2026</h4><p>Kompetisi bisnis siswa SMA bertema Greenovation — teknologi untuk solusi bisnis berkelanjutan.</p><div class="program-date">📅 <span>2026</span></div><button class="btn-outline">Selengkapnya</button></div>
         </div>
         <div class="program-card" role="button" tabindex="0" onclick="openModal(1)">
-          <div class="program-photo"><img src="progja/prog2_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 2</span></div></div>
+          <div class="program-photo"><img src="assets/progja/prog2_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 2</span></div></div>
           <div class="program-body"><span class="program-tag">Edupreneur</span><h4>Mahasiswa Mengajar</h4><p>Berbagi ilmu, pengalaman, dan motivasi bersama siswa SMAN 4 Bandung.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
         </div>
         <div class="program-card" role="button" tabindex="0" onclick="openModal(2)">
-          <div class="program-photo"><img src="progja/prog3_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 3</span></div></div>
+          <div class="program-photo"><img src="assets/progja/prog3_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 3</span></div></div>
           <div class="program-body"><span class="program-tag">Pengabdian Masyarakat</span><h4>PKM Desa Wringinanom</h4><p>Pengabdian masyarakat kolaborasi HIMPRENEUR Bandung × Malang di Desa Wringinanom.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
         </div>
         <div class="program-card" role="button" tabindex="0" onclick="openModal(3)">
-          <div class="program-photo"><img src="progja/prog4_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 4</span></div></div>
+          <div class="program-photo"><img src="assets/progja/prog4_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 4</span></div></div>
           <div class="program-body"><span class="program-tag">Multimedia × Relation</span><h4>HIMPRE VISIT: Dua Dadu</h4><p>Kunjungan ke Dua Dadu, brand pakaian anak milik para Binusian 2026.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
         </div>
         <div class="program-card" role="button" tabindex="0" onclick="openModal(4)">
-          <div class="program-photo"><img src="progja/prog5_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 5</span></div></div>
+          <div class="program-photo"><img src="assets/progja/prog5_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 5</span></div></div>
           <div class="program-body"><span class="program-tag">Multimedia × Relation</span><h4>HIMPRE VISIT: Earthy Genova</h4><p>Kunjungan ke Earthy Genova, brand denim lokal milik Rico Maulana.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
         </div>
         <div class="program-card" role="button" tabindex="0" onclick="openModal(5)">
-          <div class="program-photo"><img src="progja/prog6_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 6</span></div></div>
+          <div class="program-photo"><img src="assets/progja/prog6_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 6</span></div></div>
           <div class="program-body"><span class="program-tag">Business Development</span><h4>Warung HIMPRENEUR</h4><p>Anggota terjun langsung ke operasional bisnis nyata bersama Business Development.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
         </div>
         <div class="program-card" role="button" tabindex="0" onclick="openModal(6)">
-          <div class="program-photo"><img src="progja/prog7_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 7</span></div></div>
+          <div class="program-photo"><img src="assets/progja/prog7_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 7</span></div></div>
           <div class="program-body"><span class="program-tag">Kebersamaan</span><h4>Venture Vista</h4><p>Kebersamaan HIMPRENEUR di Villa Bale Markisa untuk mempererat antaranggota.</p><div class="program-date">📅 <span>10 Mei 2025</span></div><button class="btn-outline">Selengkapnya</button></div>
         </div>
       </div>
@@ -1007,12 +1012,12 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
       <p class="section-subtitle"></p>
     </div>
     <div class="gallery-grid">
-      <div class="gallery-item"><img src="kepengurusan/multimedia.webp" alt="Tim Divisi Multimedia HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Multimedia</span></div>
-      <div class="gallery-item"><img src="kepengurusan/relation.webp" alt="Tim Divisi Relation HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Relation</span></div>
-      <div class="gallery-item"><img src="kepengurusan/edupreneur.webp" alt="Tim Divisi EduPreneur HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">EduPreneur</span></div>
-      <div class="gallery-item"><img src="kepengurusan/hrd.webp" alt="Tim Divisi HRD HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">HRD</span></div>
-      <div class="gallery-item"><img src="kepengurusan/business-development.webp" alt="Tim Divisi Business Development HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Business Development</span></div>
-      <div class="gallery-item"><img src="kepengurusan/project-officer.webp" alt="Tim Divisi Project Officer HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Project Officer</span></div>
+      <div class="gallery-item"><img src="assets/kepengurusan/multimedia.webp" alt="Tim Divisi Multimedia HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Multimedia</span></div>
+      <div class="gallery-item"><img src="assets/kepengurusan/relation.webp" alt="Tim Divisi Relation HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Relation</span></div>
+      <div class="gallery-item"><img src="assets/kepengurusan/edupreneur.webp" alt="Tim Divisi EduPreneur HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">EduPreneur</span></div>
+      <div class="gallery-item"><img src="assets/kepengurusan/hrd.webp" alt="Tim Divisi HRD HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">HRD</span></div>
+      <div class="gallery-item"><img src="assets/kepengurusan/business-development.webp" alt="Tim Divisi Business Development HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Business Development</span></div>
+      <div class="gallery-item"><img src="assets/kepengurusan/project-officer.webp" alt="Tim Divisi Project Officer HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Project Officer</span></div>
     </div>
   </div></div>
 </section>
@@ -1023,9 +1028,9 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
   <div class="container"><div class="section-inner">
     <div class="contact-inner">
       <div class="contact-left fade-in-left">
-          <h2 class="section-title">Contact Person</h2>
+        <h2 class="section-title">Contact Person</h2>
         <div class="gold-divider"></div>
-        <p class="section-subtitle">Ada pertanyaan tentang HIMPRENEUR? Kami siap membantu.</p>
+        <p class="section-subtitle">Ada pertanyaan tentang HIMPRENEUR?<br>Kami siap membantu.</p>
         <div class="social-links">
           <a class="social-btn" href="https://www.instagram.com/himpreneur/" target="_blank" rel="noopener" title="Instagram @himpreneur">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -1078,7 +1083,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="logo-full.png" alt="HIMPRENEUR BINUS Bandung" style="height:64px;width:auto;margin-bottom:12px;">
+        <img src="assets/logo-full.png" alt="HIMPRENEUR BINUS Bandung" style="height:64px;width:auto;margin-bottom:12px;">
         <p>— To the Move and Beyond —</p>
         <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.35);margin-top:8px;font-style:normal">Himpunan Mahasiswa Entrepreneur<br>BINUS University @Bandung</p>
       </div>
@@ -1107,7 +1112,7 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
     </div>
     <div class="footer-bottom">
       <p>© 2025 HIMPRENEUR BINUS University. All rights reserved.</p>
-      <div class="footer-creators"><strong>Dibuat oleh</strong><span class="footer-creators-brand"><img src="heymoro-o.webp" alt="" width="16" height="16" loading="lazy">HeyMoro</span></div>
+      <div class="footer-creators"><strong>Dibuat oleh</strong><span class="footer-creators-brand"><img src="assets/heymoro-o.webp" alt="" width="16" height="16" loading="lazy">HeyMoro</span></div>
     </div>
   </div>
 </footer>
@@ -1129,19 +1134,19 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
    ════════════════════════════════════ */
 const programs = [
   { tag:'Edupreneur', title:'Binus Business Competition 2026', date:'2026',
-    desc:'BINUS Business Competition (BBC) 2026 merupakan program kerja Divisi Edupreneur yang menghadirkan kompetisi bisnis bagi siswa-siswi SMA dengan tema “Greenovation: Transforming the Environment with Emerging Technology for Sustainable Business.” Kegiatan ini bertujuan untuk mendorong generasi muda mengembangkan ide bisnis inovatif yang memanfaatkan teknologi dalam menciptakan solusi berkelanjutan bagi lingkungan.\n\nMelalui kompetisi ini, peserta ditantang untuk berpikir kreatif, solutif, dan berani menuangkan gagasan bisnis yang mampu memberikan dampak positif bagi masa depan. BINUS Business Competition 2026 menjadi wadah bagi para siswa untuk mengasah kemampuan berwirausaha, berpikir kritis, serta meningkatkan kesadaran akan pentingnya keberlanjutan dalam dunia bisnis.', photos:['progja/prog1_1.webp','progja/prog1_2.webp'] },
+    desc:'BINUS Business Competition (BBC) 2026 merupakan program kerja Divisi Edupreneur yang menghadirkan kompetisi bisnis bagi siswa-siswi SMA dengan tema “Greenovation: Transforming the Environment with Emerging Technology for Sustainable Business.” Kegiatan ini bertujuan untuk mendorong generasi muda mengembangkan ide bisnis inovatif yang memanfaatkan teknologi dalam menciptakan solusi berkelanjutan bagi lingkungan.\n\nMelalui kompetisi ini, peserta ditantang untuk berpikir kreatif, solutif, dan berani menuangkan gagasan bisnis yang mampu memberikan dampak positif bagi masa depan. BINUS Business Competition 2026 menjadi wadah bagi para siswa untuk mengasah kemampuan berwirausaha, berpikir kritis, serta meningkatkan kesadaran akan pentingnya keberlanjutan dalam dunia bisnis.', photos:['assets/progja/prog1_1.webp','assets/progja/prog1_2.webp'] },
   { tag:'Edupreneur', title:'Mahasiswa Mengajar', date:'2025',
-    desc:'Program kerja Mahasiswa Mengajar di SMAN 4 Bandung merupakan bentuk kontribusi nyata mahasiswa dalam mendukung proses pembelajaran sekaligus berbagi ilmu, pengalaman, dan motivasi kepada para siswa. Kegiatan ini dilaksanakan melalui sesi pembelajaran, sharing session, dan diskusi interaktif yang melibatkan mahasiswa serta siswa secara aktif.\n\nDalam pelaksanaannya, mahasiswa tidak hanya berperan sebagai pengajar, tetapi juga sebagai teman belajar yang mendorong semangat, kepercayaan diri, dan motivasi siswa untuk meraih cita-cita mereka. Kegiatan ini diharapkan dapat memberikan dampak positif bagi siswa serta menjadi langkah awal untuk kontribusi yang lebih luas di masa mendatang.', photos:['progja/prog2_1.webp','progja/prog2_2.webp'] },
+    desc:'Program kerja Mahasiswa Mengajar di SMAN 4 Bandung merupakan bentuk kontribusi nyata mahasiswa dalam mendukung proses pembelajaran sekaligus berbagi ilmu, pengalaman, dan motivasi kepada para siswa. Kegiatan ini dilaksanakan melalui sesi pembelajaran, sharing session, dan diskusi interaktif yang melibatkan mahasiswa serta siswa secara aktif.\n\nDalam pelaksanaannya, mahasiswa tidak hanya berperan sebagai pengajar, tetapi juga sebagai teman belajar yang mendorong semangat, kepercayaan diri, dan motivasi siswa untuk meraih cita-cita mereka. Kegiatan ini diharapkan dapat memberikan dampak positif bagi siswa serta menjadi langkah awal untuk kontribusi yang lebih luas di masa mendatang.', photos:['assets/progja/prog2_1.webp','assets/progja/prog2_2.webp'] },
   { tag:'Pengabdian Masyarakat', title:'PKM Desa Wringinanom: Bridging Impact and Connection', date:'2025',
-    desc:'Kegiatan pengabdian kepada masyarakat (PKM) di Desa Wringinanom, Malang. Program ini merupakan hasil kolaborasi antara HIMPRENEUR BINUS Bandung dan HIMPRENEUR BINUS Malang yang tidak hanya fokus pada kontribusi sosial, tetapi juga menjadi wadah pengabdian yang dibalut dengan kebersamaan.\n\nMelalui perjalanan sejauh 745 KM ini, kami berkesempatan untuk mengenal lebih dekat rekan-rekan HIMPRENEUR dari regional Malang. Sesi pengabdian kali ini terasa berbeda karena diisi dengan kegiatan bonding, bermain bersama, dan berdiskusi santai untuk mempererat solidaritas antar regional.', photos:['progja/prog3_1.webp','progja/prog3_2.webp'] },
+    desc:'Kegiatan pengabdian kepada masyarakat (PKM) di Desa Wringinanom, Malang. Program ini merupakan hasil kolaborasi antara HIMPRENEUR BINUS Bandung dan HIMPRENEUR BINUS Malang yang tidak hanya fokus pada kontribusi sosial, tetapi juga menjadi wadah pengabdian yang dibalut dengan kebersamaan.\n\nMelalui perjalanan sejauh 745 KM ini, kami berkesempatan untuk mengenal lebih dekat rekan-rekan HIMPRENEUR dari regional Malang. Sesi pengabdian kali ini terasa berbeda karena diisi dengan kegiatan bonding, bermain bersama, dan berdiskusi santai untuk mempererat solidaritas antar regional.', photos:['assets/progja/prog3_1.webp','assets/progja/prog3_2.webp'] },
   { tag:'Multimedia × Relation', title:'HIMPRE VISIT: Dua Dadu', date:'2025',
-    desc:'Kegiatan kunjungan HIMPRENEUR ke Dua Dadu, sebuah brand pakaian anak yang dijalankan oleh para Binusian 2026: Kak Sharla, Kak Arya, dan Kak Tabina. Kolaborasi antara divisi Multimedia dan Relation ini bertujuan untuk menggali lebih dalam mengenai proses pengembangan brand lokal di pasar kategori pakaian anak.\n\nSesi kunjungan diisi dengan interview dan sharing mengenai konsep Dua Dadu yang mengusung desain timeless namun tetap trendi, serta bagaimana mereka memastikan produk tetap ramah untuk anak-anak. Melalui diskusi ini, tim mendapatkan banyak insight baru tentang operasional bisnis dari sudut pandang sesama mahasiswa pengusaha. Terima kasih kepada Kak Sharla, Kak Arya, dan Kak Tabina atas waktu dan ilmu yang telah dibagikan.', photos:['progja/prog4_1.webp','progja/prog4_2.webp'] },
+    desc:'Kegiatan kunjungan HIMPRENEUR ke Dua Dadu, sebuah brand pakaian anak yang dijalankan oleh para Binusian 2026: Kak Sharla, Kak Arya, dan Kak Tabina. Kolaborasi antara divisi Multimedia dan Relation ini bertujuan untuk menggali lebih dalam mengenai proses pengembangan brand lokal di pasar kategori pakaian anak.\n\nSesi kunjungan diisi dengan interview dan sharing mengenai konsep Dua Dadu yang mengusung desain timeless namun tetap trendi, serta bagaimana mereka memastikan produk tetap ramah untuk anak-anak. Melalui diskusi ini, tim mendapatkan banyak insight baru tentang operasional bisnis dari sudut pandang sesama mahasiswa pengusaha. Terima kasih kepada Kak Sharla, Kak Arya, dan Kak Tabina atas waktu dan ilmu yang telah dibagikan.', photos:['assets/progja/prog4_1.webp','assets/progja/prog4_2.webp'] },
   { tag:'Multimedia × Relation', title:'HIMPRE VISIT: Earthy Genova', date:'2025',
-    desc:'Kegiatan kunjungan HIMPRENEUR ke Earthy Genova, brand denim lokal milik Rico Maulana (Binusian 25). Kolaborasi antara divisi Multimedia dan Relation ini diisi dengan sesi interview dan sharing santai mengenai perjalanan membangun bisnis di industri fashion.\n\nBanyak wawasan menarik yang didapat langsung dari tim Earthy Genova mengenai proses kreatif hingga operasional di balik layar. Terima kasih kepada Rico Maulana dan tim atas kesempatan untuk berdiskusi dan berbagi pengalaman berwirausaha.', photos:['progja/prog5_1.webp','progja/prog5_2.webp'] },
+    desc:'Kegiatan kunjungan HIMPRENEUR ke Earthy Genova, brand denim lokal milik Rico Maulana (Binusian 25). Kolaborasi antara divisi Multimedia dan Relation ini diisi dengan sesi interview dan sharing santai mengenai perjalanan membangun bisnis di industri fashion.\n\nBanyak wawasan menarik yang didapat langsung dari tim Earthy Genova mengenai proses kreatif hingga operasional di balik layar. Terima kasih kepada Rico Maulana dan tim atas kesempatan untuk berdiskusi dan berbagi pengalaman berwirausaha.', photos:['assets/progja/prog5_1.webp','assets/progja/prog5_2.webp'] },
   { tag:'Business Development', title:'Warung HIMPRENEUR', date:'2025',
-    desc:'Warung HIMPRENEUR merupakan program kerja Divisi Business Development yang memberikan kesempatan kepada anggota untuk terlibat langsung dalam kegiatan operasional bisnis. Kegiatan ini menjadi sarana pembelajaran praktis bagi tim untuk memahami proses bisnis melalui pengalaman nyata di lapangan.\n\nMelalui operasional Warung HIMPRENEUR, tim berkesempatan berinteraksi langsung dengan pembeli serta menjalankan berbagai aktivitas operasional sebagai bentuk implementasi program pengembangan bisnis yang sedang berjalan. Kegiatan ini diharapkan dapat meningkatkan pemahaman dan keterampilan anggota dalam mengelola bisnis sekaligus memberikan pengalaman berharga dalam dunia usaha.', photos:['progja/prog6_1.webp','progja/prog6_2.webp'] },
+    desc:'Warung HIMPRENEUR merupakan program kerja Divisi Business Development yang memberikan kesempatan kepada anggota untuk terlibat langsung dalam kegiatan operasional bisnis. Kegiatan ini menjadi sarana pembelajaran praktis bagi tim untuk memahami proses bisnis melalui pengalaman nyata di lapangan.\n\nMelalui operasional Warung HIMPRENEUR, tim berkesempatan berinteraksi langsung dengan pembeli serta menjalankan berbagai aktivitas operasional sebagai bentuk implementasi program pengembangan bisnis yang sedang berjalan. Kegiatan ini diharapkan dapat meningkatkan pemahaman dan keterampilan anggota dalam mengelola bisnis sekaligus memberikan pengalaman berharga dalam dunia usaha.', photos:['assets/progja/prog6_1.webp','assets/progja/prog6_2.webp'] },
   { tag:'Kebersamaan', title:'Venture Vista', date:'10 Mei 2025',
-    desc:'Venture Vista yang dilaksanakan pada 10 Mei 2025 merupakan kegiatan kebersamaan HIMPRENEUR yang bertujuan untuk mempererat hubungan antaranggota melalui berbagai aktivitas santai dan interaktif. Kegiatan ini menjadi momen bagi seluruh peserta untuk beristirahat sejenak dari rutinitas, membangun kedekatan, serta menciptakan pengalaman yang menyenangkan bersama.\n\nBertempat di Villa Bale Markisa, kegiatan ini diisi dengan berbagai permainan, sesi kebersamaan, dan aktivitas rekreasi yang memungkinkan anggota HIMPRENEUR untuk saling mengenal lebih dekat serta memperkuat rasa kekeluargaan dalam organisasi. Venture Vista menjadi wadah untuk membangun kekompakan tim, me-recharge semangat kebersamaan, dan menciptakan kenangan berharga yang dapat mendukung kolaborasi yang lebih baik di masa mendatang.', photos:['progja/prog7_1.webp','progja/prog7_2.webp'] }
+    desc:'Venture Vista yang dilaksanakan pada 10 Mei 2025 merupakan kegiatan kebersamaan HIMPRENEUR yang bertujuan untuk mempererat hubungan antaranggota melalui berbagai aktivitas santai dan interaktif. Kegiatan ini menjadi momen bagi seluruh peserta untuk beristirahat sejenak dari rutinitas, membangun kedekatan, serta menciptakan pengalaman yang menyenangkan bersama.\n\nBertempat di Villa Bale Markisa, kegiatan ini diisi dengan berbagai permainan, sesi kebersamaan, dan aktivitas rekreasi yang memungkinkan anggota HIMPRENEUR untuk saling mengenal lebih dekat serta memperkuat rasa kekeluargaan dalam organisasi. Venture Vista menjadi wadah untuk membangun kekompakan tim, me-recharge semangat kebersamaan, dan menciptakan kenangan berharga yang dapat mendukung kolaborasi yang lebih baik di masa mendatang.', photos:['assets/progja/prog7_1.webp','assets/progja/prog7_2.webp'] }
 ];
 
 /* ════════════════════════════════════
@@ -1522,7 +1527,7 @@ function toggleMobileNav() {
     ? '<svg width="13" height="13" viewBox="0 0 24 24"><polygon points="15,5 7,12 15,19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>'
     : '<svg width="13" height="13" viewBox="0 0 24 24"><polygon points="9,5 17,12 9,19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
 
-  const photoCell = s => '<img src="staff/' + s.id + '.webp" alt="' + s.n + '" loading="lazy" onerror="this.closest(\'.staff-photo\').classList.add(\'noimg\');this.remove();"><span class="staff-photo-ph">👤</span>';
+  const photoCell = s => '<img src="assets/staff/' + s.id + '.webp" alt="' + s.n + '" loading="lazy" onerror="this.closest(\'.staff-photo\').classList.add(\'noimg\');this.remove();"><span class="staff-photo-ph">👤</span>';
 
   divisiStaff.forEach(([divisi, staff], di) => {
     const N = staff.length;
@@ -1616,7 +1621,7 @@ function toggleMobileNav() {
     if (!nameEl || !photo) return;
     const id = nimByName[nameEl.textContent.trim()];
     if (!id) return;
-    photo.innerHTML = '<img src="staff/' + id + '.webp" alt="' + nameEl.textContent.trim() +
+    photo.innerHTML = '<img src="assets/staff/' + id + '.webp" alt="' + nameEl.textContent.trim() +
       '" loading="lazy" onerror="this.replaceWith(document.createTextNode(\'👤\'))">';
   });
 })();
