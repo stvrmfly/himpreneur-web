@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIMPRENEUR BINUS — To the Move and Beyond</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* ── THEME ── */
+:root{
+  --primary:#0A1628;--primary-mid:#142240;--primary-light:#1e3060;
+  --accent:#C9A96E;--accent-light:#e0c898;--accent-dark:#9a7a45;--maroon:#6B0D17;--accent-ink:#7a5c2e;
+  --surface:#FFFFFF;--surface-warm:#F2F5F9;--surface-mid:#E7ECF3;
+  --text-primary:#0A1628;--text-secondary:#3d4f6b;--text-muted:#52617a;
+  --text-on-dark:#FFFFFF;--text-on-dark-muted:rgba(255,255,255,0.65);
+  --border:rgba(10,22,40,0.12);--border-accent:rgba(201,169,110,0.4);
+  --shadow-sm:0 2px 12px rgba(10,22,40,0.08);--shadow-md:0 8px 32px rgba(10,22,40,0.12);
+  --shadow-lg:0 20px 60px rgba(10,22,40,0.16);--nav-bg:rgba(10,22,40,0.96);--hero-text:#FFFFFF;
+}
+[data-theme="maroon"]{--primary:#5a0a12;--primary-mid:#6B0D17;--primary-light:#8a1520;--accent:#C9A96E;--accent-light:#e0c898;--accent-dark:#9a7a45;--surface:#FFFEFC;--surface-warm:#F5F2F3;--surface-mid:#E9E2E4;--text-primary:#3a0808;--text-secondary:#6b2020;--text-muted:#8a4a3a;--border:rgba(90,10,18,0.12);--nav-bg:rgba(90,10,18,0.96);}
+[data-theme="white"]{--primary:#1B2A4A;--primary-mid:#243660;--primary-light:#2e4278;--accent:#C9A96E;--accent-light:#e0c898;--accent-dark:#9a7a45;--maroon:#6B0D17;--surface:#FFFFFF;--surface-warm:#FAFAFA;--surface-mid:#F5F5F5;--text-primary:#111827;--text-secondary:#374151;--text-muted:#4b5563;--border:rgba(0,0,0,0.1);--nav-bg:rgba(255,255,255,0.97);--hero-text:#1B2A4A;}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--surface);color:var(--text-primary);line-height:1.7;overflow-x:hidden;transition:background 0.4s,color 0.4s;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+
+/* ── LOADING SCREEN ── */
+#loader{position:fixed;inset:0;background:#0A1628;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+/* Flash overlay — goes white during transition */
+#loader-flash{position:fixed;inset:0;z-index:10000;background:#ffffff;opacity:0;pointer-events:none;}
+.loader-logo{width:90px;height:auto;filter:drop-shadow(0 0 20px rgba(201,169,110,0.4));animation:logopulse 1.5s ease-in-out infinite;}
+@keyframes logopulse{0%,100%{opacity:0.8;transform:scale(0.97);}50%{opacity:1;transform:scale(1.03);}}
+.loader-text{font-family:'Bricolage Grotesque',serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:2px;opacity:0;animation:fadein 0.6s 0.3s forwards;}
+.loader-slogan{font-family:'Bricolage Grotesque',serif;font-style:italic;font-size:13px;color:rgba(201,169,110,0.8);letter-spacing:2px;opacity:0;animation:fadein 0.6s 0.6s forwards;}
+.loader-bar{width:120px;height:2px;background:rgba(201,169,110,0.2);border-radius:1px;overflow:hidden;margin-top:8px;opacity:0;animation:fadein 0.3s 0.8s forwards;}
+.loader-bar-fill{height:100%;background:linear-gradient(90deg,#C9A96E,#e0c898);width:0%;animation:loadfill 1.2s 0.8s cubic-bezier(0.4,0,0.2,1) forwards;}
+@keyframes loadfill{to{width:100%;}}
+@keyframes fadein{to{opacity:1;}}
+/* Hero reveal — starts invisible, fades in after flash */
+#hero-reveal{opacity:0;}
+#hero-reveal.revealed{transition:opacity 0.8s ease;opacity:1;}
+
+/* ── CUSTOM CURSOR ── */
+#cursor-dot{position:fixed;width:10px;height:10px;background:#C9A96E;border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.2s,height 0.2s,opacity 0.2s;mix-blend-mode:screen;}
+#cursor-ring{position:fixed;width:32px;height:32px;border:1.5px solid rgba(201,169,110,0.5);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s,border-color 0.3s;}
+.cursor-trail{position:fixed;width:5px;height:5px;border-radius:50%;background:#C9A96E;pointer-events:none;z-index:9996;transform:translate(-50%,-50%);opacity:0;}
+body.cursor-ready{cursor:none;}
+body.cursor-ready a,body.cursor-ready button,body.cursor-ready [onclick]{cursor:none;}
+
+/* ── KAWUNG ── */
+.kawung-bg{position:absolute;inset:0;opacity:0.06;pointer-events:none;will-change:transform;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='20' cy='20' r='14' fill='none' stroke='%23fff' stroke-width='1.2'/%3E%3Ccircle cx='20' cy='20' r='7' fill='none' stroke='%23fff' stroke-width='0.8'/%3E%3Ccircle cx='20' cy='20' r='2.5' fill='%23fff'/%3E%3Ccircle cx='60' cy='20' r='14' fill='none' stroke='%23fff' stroke-width='1.2'/%3E%3Ccircle cx='60' cy='20' r='7' fill='none' stroke='%23fff' stroke-width='0.8'/%3E%3Ccircle cx='60' cy='20' r='2.5' fill='%23fff'/%3E%3Ccircle cx='40' cy='40' r='14' fill='none' stroke='%23fff' stroke-width='1.2'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%23fff' stroke-width='0.8'/%3E%3Ccircle cx='40' cy='40' r='2.5' fill='%23fff'/%3E%3Ccircle cx='20' cy='60' r='14' fill='none' stroke='%23fff' stroke-width='1.2'/%3E%3Ccircle cx='20' cy='60' r='7' fill='none' stroke='%23fff' stroke-width='0.8'/%3E%3Ccircle cx='20' cy='60' r='2.5' fill='%23fff'/%3E%3Ccircle cx='60' cy='60' r='14' fill='none' stroke='%23fff' stroke-width='1.2'/%3E%3Ccircle cx='60' cy='60' r='7' fill='none' stroke='%23fff' stroke-width='0.8'/%3E%3Ccircle cx='60' cy='60' r='2.5' fill='%23fff'/%3E%3C/svg%3E");background-size:80px 80px;}
+.kawung-bg-dark{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='20' cy='20' r='14' fill='none' stroke='%230A1628' stroke-width='1.2'/%3E%3Ccircle cx='20' cy='20' r='7' fill='none' stroke='%230A1628' stroke-width='0.8'/%3E%3Ccircle cx='20' cy='20' r='2.5' fill='%230A1628'/%3E%3Ccircle cx='60' cy='20' r='14' fill='none' stroke='%230A1628' stroke-width='1.2'/%3E%3Ccircle cx='60' cy='20' r='7' fill='none' stroke='%230A1628' stroke-width='0.8'/%3E%3Ccircle cx='60' cy='20' r='2.5' fill='%230A1628'/%3E%3Ccircle cx='40' cy='40' r='14' fill='none' stroke='%230A1628' stroke-width='1.2'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%230A1628' stroke-width='0.8'/%3E%3Ccircle cx='40' cy='40' r='2.5' fill='%230A1628'/%3E%3Ccircle cx='20' cy='60' r='14' fill='none' stroke='%230A1628' stroke-width='1.2'/%3E%3Ccircle cx='20' cy='60' r='7' fill='none' stroke='%230A1628' stroke-width='0.8'/%3E%3Ccircle cx='20' cy='60' r='2.5' fill='%230A1628'/%3E%3Ccircle cx='60' cy='60' r='14' fill='none' stroke='%230A1628' stroke-width='1.2'/%3E%3Ccircle cx='60' cy='60' r='7' fill='none' stroke='%230A1628' stroke-width='0.8'/%3E%3Ccircle cx='60' cy='60' r='2.5' fill='%230A1628'/%3E%3C/svg%3E");opacity:0.04;}
+
+/* ── TYPOGRAPHY ── */
+h1,h2,h3{font-family:'Bricolage Grotesque',serif;line-height:1.2;}
+.display{font-family:'Bricolage Grotesque',serif;}
+.section-label{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px;}
+#pillars .section-label,#contact .section-label{color:var(--accent);}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px;}
+.section-title{font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--text-primary);margin-bottom:16px;}
+.section-subtitle{font-family:'Hanken Grotesk',sans-serif;font-size:clamp(16px,2vw,20px);color:var(--text-secondary);max-width:600px;line-height:1.7;}
+.gold-divider{width:60px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-light));margin:20px 0;border-radius:2px;}
+.gold-divider.center{margin:20px auto;}
+
+/* ── DIAGONAL SECTION CLIPS ── */
+.clip-down{clip-path:polygon(0 0,100% 0,100% 88%,0 100%);margin-bottom:-3vw;padding-bottom:calc(100px + 3vw)!important;}
+.clip-up{clip-path:polygon(0 3vw,100% 0,100% 100%,0 100%);margin-top:-3vw;padding-top:calc(100px + 3vw)!important;}
+.clip-both{clip-path:polygon(0 3vw,100% 0,100% calc(100% - 3vw),0 100%);margin-top:-3vw;margin-bottom:-3vw;padding-top:calc(100px + 3vw)!important;padding-bottom:calc(100px + 3vw)!important;}
+
+/* ── NAVBAR ── */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;transition:all 0.4s;}
+#navbar.scrolled{background:var(--nav-bg);padding:14px 40px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(0,0,0,0.2);}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-logo img{height:44px;width:auto;transition:all 0.3s;}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;letter-spacing:0.5px;color:rgba(255,255,255,0.85);transition:color 0.2s;position:relative;}
+[data-theme="white"] #navbar.scrolled .nav-links a{color:var(--text-secondary);}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width 0.3s;}
+.nav-links a:hover{color:var(--accent);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-links a.active{color:var(--accent);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text-on-dark);border-radius:2px;transition:all 0.3s;}
+[data-theme="white"] #navbar.scrolled .hamburger span{background:var(--primary);}
+.mobile-nav{display:none;position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--primary);z-index:999;flex-direction:column;padding:80px 40px 40px;gap:28px;transition:right 0.4s;box-shadow:-8px 0 40px rgba(0,0,0,0.3);}
+.mobile-nav.open{right:0;}
+.mobile-nav a{font-family:'Bricolage Grotesque',serif;font-size:20px;color:var(--text-on-dark);border-bottom:0.5px solid rgba(255,255,255,0.1);padding-bottom:16px;transition:color 0.2s;}
+.mobile-nav a:hover{color:var(--accent);}
+.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998;}
+.mobile-overlay.open{display:block;}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;height:100vh;background:var(--primary);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+/* Hero scroll animation (cinematic recede + title wipe + scroll-progress line) */
+@keyframes hv-recede{to{transform:scale(0.84);filter:blur(7px);opacity:.12}}
+@keyframes hv-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes hv-progX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:no-preference){
+  #hero .hero-content{animation:hv-recede linear both;animation-timeline:scroll(root);animation-range:0 85vh;transform-origin:50% 40%;will-change:transform,filter,opacity}
+  #hero .hero-title{animation:hv-wipe .85s cubic-bezier(.16,1,.3,1) .9s both}
+  #hero::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;animation:hv-progX linear both;animation-timeline:scroll(root);animation-range:0 100vh;z-index:3}
+}
+.hero-bg-gradient{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(107,13,23,0.4) 0%,transparent 60%),radial-gradient(ellipse at 70% 20%,rgba(201,169,110,0.08) 0%,transparent 50%);pointer-events:none;}
+#hero .kawung-bg{transition:none;}
+.hero-content{position:relative;z-index:2;padding:0 24px;max-width:860px;width:100%;display:flex;flex-direction:column;align-items:center;flex:0 0 auto;margin-top:-80px;}
+.hero-logo-wrap{margin-bottom:16px;display:flex;justify-content:center;}
+.hero-logo{display:flex;align-items:center;justify-content:center;background:transparent;animation:floatlogo 4s ease-in-out infinite;will-change:transform;}
+@keyframes floatlogo{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.hero-logo-inner{position:relative;cursor:none;}
+.hero-logo-inner img{width:90px;height:auto;object-fit:contain;display:block;filter:drop-shadow(0 0 12px rgba(201,169,110,0.4));transition:filter 0.35s ease,transform 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+.hero-logo-inner:hover img{filter:drop-shadow(0 0 24px rgba(255,210,80,0.85));transform:scale(1.1);}
+.hero-eyebrow{font-size:10px;letter-spacing:5px;color:var(--accent);font-weight:500;text-transform:uppercase;margin-bottom:10px;opacity:0.9;}
+.hero-title{font-family:'Bricolage Grotesque',serif;font-size:clamp(56px,10vw,108px);font-weight:700;color:var(--hero-text);line-height:0.92;margin-bottom:10px;letter-spacing:-3px;}
+.hero-org{font-family:'Hanken Grotesk',sans-serif;font-size:clamp(11px,1.4vw,15px);color:rgba(255,255,255,0.4);letter-spacing:5px;text-transform:uppercase;}
+.hero-slogan{font-family:'Bricolage Grotesque',serif;font-style:italic;font-size:clamp(14px,1.8vw,20px);color:var(--accent-light);margin-top:14px;display:inline-flex;align-items:center;gap:12px;}
+.hero-slogan-dash{opacity:0.4;}
+.tw-cursor{display:inline-block;width:2px;height:1.1em;background:var(--accent);margin-left:2px;vertical-align:text-bottom;animation:twblink 0.75s step-end infinite;}
+@keyframes twblink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* ── MASCOT PARADE — REMOVED ── */
+.parade-mascot img{width:100%;height:100%;object-fit:contain;}
+
+/* ── STATS SECTION ── */
+#stats{position:absolute;bottom:32px;left:0;width:100%;z-index:2;background:transparent;}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:0;}
+.stat-card{background:transparent;border-right:0.5px solid rgba(201,169,110,0.15);padding:18px 40px;text-align:center;position:relative;}
+.stat-card:last-child{border-right:none;}
+.stat-card::before{content:'';position:absolute;top:0;left:25%;right:25%;height:0.5px;background:rgba(201,169,110,0.15);}
+.stat-number{font-family:'Bricolage Grotesque',serif;font-size:clamp(22px,2.6vw,36px);font-weight:700;color:#fff;line-height:1;margin-bottom:5px;position:relative;}
+.stat-suffix{font-size:0.55em;color:var(--accent);vertical-align:super;line-height:0;}
+.stat-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:500;}
+.stat-bar{width:0%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:10px auto 0;transition:width 1.8s cubic-bezier(0.4,0,0.2,1);}
+.stat-card.counted .stat-bar{width:48%;}
+
+/* ── SECTIONS BASE ── */
+section{position:relative;overflow:hidden;}
+.container{max-width:1100px;margin:0 auto;padding:0 40px;}
+.section-inner{padding:100px 0;}
+.fade-in{opacity:0;transform:translateY(36px);transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1),transform 0.75s cubic-bezier(0.22,1,0.36,1);}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+.fade-in-left{opacity:0;transform:translateX(-40px);transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1),transform 0.75s cubic-bezier(0.22,1,0.36,1);}
+.fade-in-left.visible{opacity:1;transform:translateX(0);}
+.fade-in-right{opacity:0;transform:translateX(40px);transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1),transform 0.75s cubic-bezier(0.22,1,0.36,1);}
+.fade-in-right.visible{opacity:1;transform:translateX(0);}
+.fade-in-up{opacity:0;transform:translateY(50px);transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1),transform 0.8s cubic-bezier(0.22,1,0.36,1);}
+.fade-in-up.visible{opacity:1;transform:translateY(0);}
+.fade-in-scale{opacity:0;transform:scale(0.88);transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1),transform 0.7s cubic-bezier(0.22,1,0.36,1);}
+.fade-in-scale.visible{opacity:1;transform:scale(1);}
+.stagger-1{transition-delay:0.08s!important;}
+.stagger-2{transition-delay:0.16s!important;}
+.stagger-3{transition-delay:0.24s!important;}
+.stagger-4{transition-delay:0.32s!important;}
+.stagger-5{transition-delay:0.40s!important;}
+.stagger-6{transition-delay:0.48s!important;}
+
+/* ── PROFILE ── */
+#profile{background:var(--surface);}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:60px;}
+.profile-text p{font-family:'Hanken Grotesk',sans-serif;font-size:18px;color:var(--text-secondary);line-height:1.8;margin-bottom:20px;}
+.profile-photo{aspect-ratio:1400/608;border-radius:4px;overflow:hidden;margin-top:60px;}
+.profile-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.timeline-item{display:flex;gap:24px;margin-bottom:32px;position:relative;}
+.timeline-item::before{content:'';position:absolute;left:19px;top:40px;bottom:-32px;width:1px;background:var(--border-accent);}
+.timeline-item:last-child::before{display:none;}
+.timeline-dot{width:40px;height:40px;border-radius:50%;background:var(--primary);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:600;color:var(--accent);font-family:'Hanken Grotesk',sans-serif;}
+.timeline-content h4{font-size:14px;font-weight:600;color:var(--accent-ink);letter-spacing:1px;margin-bottom:4px;}
+.timeline-content p{font-family:'Hanken Grotesk',sans-serif;font-size:16px;color:var(--text-secondary);margin:0!important;}
+
+/* ── PILLARS ── */
+#pillars{background:var(--primary);position:relative;}
+.pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:60px;}
+.pillar-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);padding:40px 40px 36px;position:relative;overflow:hidden;transition:background 0.3s;display:flex;gap:28px;align-items:flex-start;}
+.pillar-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.pillar-card:hover{background:rgba(255,255,255,0.07);}
+.pillar-card:hover::before{transform:scaleX(1);}
+.pillar-mascot{flex-shrink:0;width:100px;height:100px;display:flex;align-items:center;justify-content:center;position:relative;}
+.pillar-mascot img{width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3));transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+.pillar-card:hover .pillar-mascot img{transform:translateY(-6px) scale(1.08);}
+/* Mascot tooltip speech bubble */
+.pillar-tooltip{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) scale(0.85);transform-origin:bottom center;background:rgba(10,22,40,0.95);border:1px solid rgba(201,169,110,0.3);color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-style:italic;padding:8px 12px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;z-index:10;backdrop-filter:blur(6px);}
+.pillar-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:rgba(10,22,40,0.95);}
+.pillar-card:hover .pillar-tooltip{opacity:1;transform:translateX(-50%) scale(1);}
+.pillar-text{flex:1;}
+.pillar-number{font-family:'Bricolage Grotesque',serif;font-size:11px;font-weight:700;color:rgba(201,169,110,0.5);letter-spacing:3px;margin-bottom:6px;}
+.pillar-title{font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.pillar-desc{font-family:'Hanken Grotesk',sans-serif;font-size:17px;color:rgba(255,255,255,0.7);line-height:1.6;}
+
+/* ── VISION & MISSION ── */
+#vision{background:var(--surface-warm);position:relative;}
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:60px;}
+.vm-card{background:var(--surface);border-radius:4px;padding:48px 40px;box-shadow:var(--shadow-sm);border-top:3px solid var(--accent);position:relative;overflow:hidden;}
+.vm-card::after{content:'';position:absolute;bottom:0;right:0;width:120px;height:120px;background:var(--surface-warm);border-radius:100% 0 0 0;opacity:0.5;}
+.vm-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-ink);font-weight:600;margin-bottom:20px;}
+.vm-card h3{font-size:28px;color:var(--primary);margin-bottom:20px;}
+.vm-card p,.vm-card li{font-family:'Hanken Grotesk',sans-serif;font-size:17px;color:var(--text-secondary);line-height:1.8;}
+.vm-card ul{list-style:none;padding:0;}
+.vm-card ul li{padding:12px 0;border-bottom:0.5px solid var(--border);padding-left:20px;position:relative;}
+.vm-card ul li:last-child{border-bottom:none;}
+.vm-card ul li::before{content:'◆';position:absolute;left:0;color:var(--accent);font-size:8px;top:18px;}
+
+/* ── PROGRAMS SLIDER ── */
+#programs{background:var(--surface);}
+.programs-header{margin-bottom:48px;}
+.slider-outer{position:relative;overflow:hidden;}
+.slider-track{display:flex;gap:24px;cursor:grab;user-select:none;transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);will-change:transform;}
+.slider-track.dragging{cursor:grabbing;transition:none;}
+.program-card{flex:0 0 calc(33.333% - 16px);border:0.5px solid var(--border);border-radius:4px;overflow:hidden;transition:box-shadow 0.3s,transform 0.3s;cursor:pointer;background:var(--surface);}
+.program-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px);}
+.program-photo{aspect-ratio:16/10;background:var(--surface-warm);border-bottom:1px dashed var(--border-accent);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text-muted);font-size:12px;position:relative;overflow:hidden;}
+.program-photo .kawung-bg{opacity:0.03;}
+.program-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;}
+.program-photo .photo-label{position:relative;z-index:1;text-align:center;}
+.program-body{padding:24px;background:var(--surface);}
+.program-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent-ink);background:var(--surface-warm);padding:4px 10px;border-radius:2px;margin-bottom:12px;}
+.program-body h4{font-size:18px;color:var(--primary);margin-bottom:8px;}
+.program-body p{font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;}
+.program-date{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:6px;margin-bottom:16px;}
+.btn-outline{display:inline-block;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--primary);border:1px solid var(--primary);padding:8px 20px;border-radius:2px;transition:all 0.3s;cursor:pointer;background:none;}
+.btn-outline:hover{background:var(--primary);color:var(--text-on-dark);}
+.slider-nav{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:32px;}
+.slider-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--border-accent);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--accent-ink);transition:all 0.3s;}
+.slider-arrow:hover{background:var(--accent);color:var(--primary);border-color:var(--accent);}
+.slider-arrow:disabled{opacity:0.3;cursor:default;}
+.slider-dots{display:flex;gap:8px;}
+.slider-dot{width:8px;height:8px;border-radius:50%;background:var(--border-accent);border:none;cursor:pointer;transition:all 0.3s;padding:0;position:relative;}
+.slider-dot::after{content:'';position:absolute;inset:-8px;}
+.slider-dot.active{background:var(--accent);width:24px;border-radius:4px;}
+
+/* ── MODAL ── */
+.program-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:2000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(4px);}
+.program-modal-overlay.open{opacity:1;pointer-events:all;}
+.program-modal{background:var(--surface);border-radius:8px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform 0.3s;box-shadow:0 40px 80px rgba(0,0,0,0.4);}
+.program-modal-overlay.open .program-modal{transform:translateY(0);}
+.modal-close{display:flex;justify-content:flex-end;padding:16px 20px 0;}
+.modal-close-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface-warm);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all 0.2s;}
+.modal-close-btn:hover{background:var(--primary);color:white;border-color:var(--primary);}
+.modal-photos{display:grid;gap:4px;margin:0 20px;border-radius:6px;overflow:hidden;}
+.modal-photos.photos-1{grid-template-columns:1fr;}
+.modal-photos.photos-2{grid-template-columns:1fr 1fr;}
+.modal-photos.photos-3{grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;}
+.modal-photo-item{background:var(--surface-mid);display:flex;align-items:center;justify-content:center;min-height:160px;position:relative;overflow:hidden;}
+.modal-photos.photos-3 .modal-photo-item:first-child{grid-row:span 2;}
+.modal-photo-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.modal-photo-placeholder{text-align:center;color:var(--text-muted);font-size:12px;padding:24px;}
+.modal-body{padding:28px 28px 32px;}
+.modal-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent-dark);background:var(--surface-warm);padding:4px 10px;border-radius:2px;margin-bottom:12px;}
+.modal-body h2{font-size:26px;color:var(--primary);margin-bottom:8px;}
+.modal-date{font-size:13px;color:var(--text-muted);margin-bottom:16px;display:flex;align-items:center;gap:6px;}
+.modal-divider{width:40px;height:2px;background:var(--accent);margin-bottom:16px;border-radius:1px;}
+.modal-body p{font-family:'Hanken Grotesk',sans-serif;font-size:17px;color:var(--text-secondary);line-height:1.8;white-space:pre-line;}
+
+/* ── STRUKTUR ORGANISASI ── */
+#struktur{background:var(--surface-warm);position:relative;}
+.struktur-intro{text-align:center;max-width:600px;margin:0 auto 60px;}
+
+/* ── ORG CHART WRAPPER ── */
+.org-chart{width:100%;overflow-x:auto;padding-bottom:16px;}
+.org-chart-inner{
+  display:grid;
+  grid-template-rows:auto 32px auto 32px auto;
+  justify-items:center;
+  min-width:700px;
+}
+
+/* ── CONNECTORS ── */
+.oc-vline{width:2px;background:var(--accent);opacity:0.6;justify-self:center;}
+.oc-hline-wrap{
+  width:100%;display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+/* Full-width horizontal trunk line */
+.oc-trunk{
+  position:absolute;top:0;left:calc(var(--col-w)/2);right:calc(var(--col-w)/2);
+  height:2px;background:var(--accent);opacity:0.5;
+}
+
+/* ── ROW LAYOUTS ── */
+/* Row 1: Ketua (single centered) */
+.oc-row-ketua{display:flex;justify-content:center;}
+/* Row 3: Sekretaris ↔ Bendahara */
+.oc-row-sekben{display:flex;justify-content:center;align-items:center;gap:0;position:relative;width:100%;}
+/* continuous central spine through this row (connects Ketua vline → hbar → trunk vline) */
+.oc-row-sekben::before{content:'';position:absolute;left:50%;top:-44px;bottom:-12px;width:2px;background:var(--accent);opacity:0.5;transform:translateX(-50%);}
+.oc-sekben-hbar{
+  height:2px;width:120px;background:var(--accent);opacity:0.5;
+  display:flex;align-items:center;justify-content:space-between;position:relative;
+}
+.oc-sekben-hbar::before,.oc-sekben-hbar::after{
+  content:'';position:absolute;top:50%;transform:translateY(-50%);
+  border:5px solid transparent;
+}
+.oc-sekben-hbar::before{left:-1px;border-right-color:var(--accent);}
+.oc-sekben-hbar::after{right:-1px;border-left-color:var(--accent);}
+/* Row 5: Koordinator + Wakil columns */
+.oc-row-koor{--col-w:148px;display:flex;justify-content:center;gap:14px;width:max-content;max-width:100%;margin:0 auto;position:relative;align-items:flex-start;padding-top:22px;}
+
+/* ── CARDS ── */
+.oc-card{
+  background:var(--surface);border:1px solid var(--border-accent);
+  border-radius:6px;text-align:center;
+  position:relative;transition:box-shadow 0.3s,transform 0.3s;
+  box-shadow:var(--shadow-sm);
+}
+.oc-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.oc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:6px 6px 0 0;background:var(--accent);}
+
+.oc-card-photo{
+  border-radius:14px;background:var(--surface-mid);
+  border:1.5px solid var(--border-accent);
+  margin:0 auto 8px;overflow:hidden;width:100%;aspect-ratio:5/6;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-muted);
+}
+.oc-card-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;transform:scale(1.2);transform-origin:top center;}
+.oc-jabatan{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent-ink);margin-bottom:3px;}
+.oc-nama{font-family:'Bricolage Grotesque',serif;font-weight:700;color:var(--text-primary);}
+.oc-divisi{font-size:11px;color:var(--accent-ink);font-weight:600;margin-top:2px;}
+
+/* Ketua — besar */
+.oc-card.oc-ketua{padding:16px 14px;width:190px;}
+.oc-card.oc-ketua .oc-card-photo{font-size:40px;}
+.oc-card.oc-ketua .oc-nama{font-size:16px;}
+.oc-card.oc-ketua .oc-jabatan{font-size:10px;}
+
+/* Sekretaris & Bendahara — medium */
+.oc-card.oc-sekben{padding:14px 12px;width:160px;}
+.oc-card.oc-sekben .oc-card-photo{font-size:32px;}
+.oc-card.oc-sekben .oc-nama{font-size:14px;}
+
+/* Column wrapping a Koordinator + its Wakil */
+.oc-koor-col{position:relative;display:flex;flex-direction:column;align-items:stretch;width:var(--col-w);}
+/* connector up from each column to the trunk */
+.oc-koor-col::before{content:'';position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:2px;height:22px;background:var(--accent);opacity:0.5;}
+/* vline between koor and wakil */
+.oc-koor-vline{width:2px;height:18px;background:var(--accent);opacity:0.5;margin:0 auto;}
+
+/* Koordinator — medium */
+.oc-card.oc-koor{padding:12px 8px;width:100%;}
+.oc-card.oc-koor .oc-card-photo{font-size:28px;}
+.oc-card.oc-koor .oc-nama{font-size:13px;}
+.oc-card.oc-koor .oc-divisi{font-size:10px;}
+
+/* Wakil — sedikit lebih kecil */
+.oc-card.oc-wakil{padding:12px 8px;width:100%;border-top-width:2px;}
+.oc-card.oc-wakil::after{background:rgba(201,169,110,0.45);}
+.oc-card.oc-wakil .oc-card-photo{font-size:24px;}
+.oc-card.oc-wakil .oc-jabatan{font-size:8px;}
+.oc-card.oc-wakil .oc-nama{font-size:12px;}
+.oc-card.oc-wakil .oc-divisi{font-size:9px;}
+
+/* hint */
+.org-edit-hint{font-size:11px;color:var(--accent-ink);border:1px dashed var(--border-accent);border-radius:4px;padding:8px 14px;margin-top:36px;text-align:center;opacity:0.8;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .oc-row-koor{--col-w:120px;gap:10px;}
+}
+@media(max-width:640px){
+  .org-chart-inner{min-width:560px;}
+  .oc-row-koor{--col-w:88px;gap:6px;}
+  .oc-card.oc-koor,.oc-card.oc-wakil{padding:10px 6px;}
+  .oc-card.oc-koor .oc-divisi,.oc-card.oc-wakil .oc-divisi{font-size:8px;}
+}
+
+/* ── STAFF PER DIVISI (stacked card deck) ── */
+.staff-section{margin-top:90px;}
+.staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px;}
+.staff-card{
+  position:relative;background:var(--surface);border:1px solid var(--border-accent);
+  border-radius:22px;box-shadow:var(--shadow-sm);
+  padding:22px 14px 18px;text-align:center;overflow:hidden;
+  transition:box-shadow 0.3s,transform 0.3s;
+}
+.staff-card:hover{box-shadow:var(--shadow-md);}
+.staff-card-divisi{
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent-ink);margin-bottom:12px;
+}
+
+/* the stage holding the stacked staff cards */
+.staff-stage{position:relative;height:330px;}
+
+/* arrows over the sides (like the sketch) */
+.staff-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:40px;height:40px;border-radius:50%;
+  border:1.5px solid var(--border-accent);background:var(--surface);
+  color:var(--accent-ink);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:5;
+  transition:background 0.25s,color 0.25s,border-color 0.25s,transform 0.15s;
+}
+.staff-arrow.left{left:-6px;}
+.staff-arrow.right{right:-6px;}
+.staff-arrow:hover{background:var(--accent);color:var(--surface);border-color:var(--accent);}
+.staff-arrow:active{transform:translateY(-50%) scale(0.9);}
+.staff-arrow svg{display:block;}
+
+/* each staff = its own mini card, absolutely stacked */
+.staff-slide{
+  position:absolute;top:8px;bottom:8px;left:13%;right:13%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--surface);border:1px solid var(--border-accent);border-radius:16px;
+  box-shadow:var(--shadow-sm);
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1),opacity 0.5s,box-shadow 0.5s;
+  will-change:transform,opacity;
+}
+.staff-slide.sp-current{transform:translateX(0) scale(1);opacity:1;z-index:3;box-shadow:var(--shadow-md);}
+.staff-slide.sp-prev{transform:translateX(-56%) scale(0.82);opacity:0.5;z-index:1;}
+.staff-slide.sp-next{transform:translateX(56%) scale(0.82);opacity:0.5;z-index:1;}
+.staff-slide.sp-hidden{transform:scale(0.66);opacity:0;z-index:0;pointer-events:none;}
+
+.staff-photo{
+  position:relative;width:72%;aspect-ratio:5/6;border-radius:14px;overflow:hidden;
+  background:var(--surface-mid);border:1.5px solid var(--border-accent);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 12px;flex-shrink:0;
+}
+.staff-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.staff-photo .staff-photo-ph{font-size:42px;color:var(--text-muted);line-height:1;}
+.staff-photo:not(.noimg) .staff-photo-ph{display:none;}
+.staff-name{font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:14.5px;color:var(--text-primary);padding:0 10px;line-height:1.25;}
+.staff-jurusan{font-size:11px;color:var(--accent-ink);font-weight:600;margin-top:5px;padding:0 10px;line-height:1.25;}
+.staff-meta{font-size:10px;color:var(--text-muted);margin-top:5px;font-family:'Hanken Grotesk',sans-serif;}
+
+.staff-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:16px;}
+.staff-dot{width:7px;height:7px;border-radius:50%;background:var(--border-accent);border:none;padding:0;cursor:pointer;transition:background 0.25s,transform 0.25s;position:relative;}
+.staff-dot::after{content:'';position:absolute;inset:-9px;}
+.staff-dot.active{background:var(--accent);transform:scale(1.25);}
+
+@media(max-width:900px){
+  .staff-grid{grid-template-columns:repeat(2,1fr);gap:20px;}
+}
+@media(max-width:600px){
+  .staff-grid{grid-template-columns:1fr;}
+  .staff-stage{height:330px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .staff-slide{transition-duration:0.01ms!important;}
+}
+
+/* ── GALLERY ── */
+#gallery{background:var(--surface-warm);}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px;}
+.gallery-item{position:relative;aspect-ratio:3/2;background:var(--surface-mid);border-radius:4px;overflow:hidden;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;}
+.gallery-item:hover img{transform:scale(1.06);}
+.gallery-item-label{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 12px;background:linear-gradient(to top,rgba(6,14,26,0.82),transparent);color:#fff;font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity 0.3s,transform 0.3s;}
+.gallery-item:hover .gallery-item-label,.gallery-item:focus-within .gallery-item-label{opacity:1;transform:translateY(0);}
+@media(prefers-reduced-motion:reduce){.gallery-item img,.gallery-item-label{transition-duration:0.01ms!important;}}
+
+/* ── CONTACT ── */
+#contact{background:var(--primary);position:relative;}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.contact-left .section-title{color:var(--text-on-dark);}
+.contact-left .section-subtitle{color:var(--text-on-dark-muted);}
+.contact-card{background:rgba(255,255,255,0.05);border:1px solid rgba(201,169,110,0.2);border-radius:4px;padding:48px 40px;}
+.contact-item{display:flex;align-items:flex-start;gap:20px;padding:20px 0;border-bottom:0.5px solid rgba(255,255,255,0.08);}
+.contact-item:last-child{border-bottom:none;}
+.contact-icon{width:44px;height:44px;border-radius:50%;border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);}
+.contact-info label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:4px;}
+.contact-info span,.contact-info a{font-family:'Hanken Grotesk',sans-serif;font-size:17px;color:rgba(255,255,255,0.8);transition:color 0.2s;}
+.contact-info a{display:block;}
+.contact-info a+a{margin-top:6px;}
+.contact-info a:hover{color:var(--accent);}
+.social-links{display:flex;gap:12px;margin-top:32px;}
+.social-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;color:var(--accent);transition:all 0.3s;cursor:pointer;text-decoration:none;}
+.social-btn:hover{background:var(--accent);color:var(--primary);border-color:var(--accent);}
+
+/* ── FOOTER ── */
+footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidden;}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:40px;border-bottom:0.5px solid rgba(255,255,255,0.08);margin-bottom:32px;gap:40px;flex-wrap:wrap;}
+.footer-brand p{font-style:italic;color:var(--accent);font-family:'Bricolage Grotesque',serif;font-size:15px;}
+.footer-nav h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;font-weight:600;}
+.footer-nav ul{list-style:none;}
+.footer-nav ul li{margin-bottom:10px;}
+.footer-nav ul li a{font-size:14px;color:rgba(255,255,255,0.5);transition:color 0.2s;}
+.footer-nav ul li a:hover{color:var(--accent);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,0.3);}
+.footer-creators{font-size:12px;color:rgba(255,255,255,0.3);text-align:right;}
+.footer-creators strong{color:rgba(201,169,110,0.7);display:block;margin-bottom:2px;font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+.footer-creators-brand{display:inline-flex;align-items:center;gap:6px;}
+.footer-creators-brand img{width:16px;height:16px;display:block;}
+
+/* ── THEME SWITCHER ── */
+#theme-switcher{position:fixed;bottom:32px;right:32px;z-index:999;}
+.theme-toggle-btn{width:48px;height:48px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:transform 0.3s;font-size:20px;}
+.theme-toggle-btn:hover{transform:scale(1.1) rotate(15deg);}
+.theme-panel{position:absolute;bottom:60px;right:0;background:white;border-radius:8px;padding:16px;box-shadow:var(--shadow-lg);display:none;width:180px;}
+.theme-panel.open{display:block;}
+.theme-panel h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#666;margin-bottom:12px;font-weight:600;}
+.theme-option{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:4px;cursor:pointer;transition:background 0.2s;font-size:13px;color:#333;border:none;width:100%;background:none;text-align:left;}
+.theme-option:hover{background:#f5f5f5;}
+.theme-option.active{background:#f0f0f0;font-weight:600;}
+.theme-swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .profile-grid,.vm-grid,.contact-inner{grid-template-columns:1fr;gap:40px;}
+  .pillars-grid{grid-template-columns:1fr;}
+  .pillar-card{padding:28px 24px;}
+  .pillar-mascot{width:80px;height:80px;}
+  .pillar-mascot img{width:80px;height:80px;}
+  .program-card{flex:0 0 calc(80vw - 48px);}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .footer-top{flex-direction:column;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+  .footer-creators{text-align:center;}
+  #navbar{padding:16px 24px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .mobile-nav{display:flex;}
+  .container{padding:0 24px;}
+  .section-inner{padding:72px 0;}
+  .modal-photos.photos-3{grid-template-columns:1fr;grid-template-rows:auto;}
+  .modal-photos.photos-3 .modal-photo-item:first-child{grid-row:span 1;}
+  .stats-grid{grid-template-columns:1fr;}
+  .stat-card{border-right:none;border-bottom:0.5px solid rgba(201,169,110,0.15);}
+  .stat-card:last-child{border-bottom:none;}
+  #stats{position:relative;}
+  .mascot-parade{padding:12px 0 0;}
+  .parade-mascot{width:64px;height:64px;}
+  .clip-down,.clip-up,.clip-both{clip-path:none;margin:0;padding:100px 0!important;}
+}
+@media(max-width:600px){
+  .program-card{flex:0 0 calc(90vw - 48px);}
+  .gallery-grid{grid-template-columns:1fr;}
+  .vm-card{padding:32px 24px;}
+  .pillar-card{flex-direction:column;align-items:center;text-align:center;gap:16px;}
+  .pillar-mascot{width:100px;height:100px;}
+  .pillar-mascot img{width:100px;height:100px;}
+  #theme-switcher{bottom:20px;right:20px;}
+  .modal-photos.photos-2{grid-template-columns:1fr;}
+  #cursor-dot,#cursor-ring,.cursor-trail{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  .parade-track,.parade-mascot,#loader *,.loader-ring,.hero-logo img{animation:none!important;}
+  .tw-cursor{animation:none!important;opacity:1;}
+}
+</style>
+</head>
+<body data-theme="navy">
+
+<!-- ══ LOADING SCREEN ══ -->
+<div id="loader">
+  <img src="logo.png" alt="HIMPRENEUR" class="loader-logo" style="width:80px;height:auto;">
+  <div class="loader-text">HIMPRENEUR</div>
+  <div class="loader-slogan">To the Move and Beyond</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+<!-- Flash overlay for lightbulb transition -->
+<div id="loader-flash"></div>
+
+<!-- ══ CUSTOM CURSOR ══ -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <img src="logo-full.png" alt="HIMPRENEUR BINUS Bandung" onerror="this.style.display='none'">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#profile">Profil</a></li>
+    <li><a href="#struktur">Struktur</a></li>
+    <li><a href="#pillars">Pilar</a></li>
+    <li><a href="#vision">Visi &amp; Misi</a></li>
+    <li><a href="#programs">Kegiatan</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMobileNav()" aria-label="Menu"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-overlay" id="mobile-overlay" onclick="toggleMobileNav()"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#profile" onclick="toggleMobileNav()">Profil</a>
+  <a href="#struktur" onclick="toggleMobileNav()">Struktur</a>
+  <a href="#pillars" onclick="toggleMobileNav()">Pilar</a>
+  <a href="#vision" onclick="toggleMobileNav()">Visi &amp; Misi</a>
+  <a href="#programs" onclick="toggleMobileNav()">Kegiatan</a>
+  <a href="#contact" onclick="toggleMobileNav()">Kontak</a>
+</div>
+
+<!-- ══ HERO + STATS (one full viewport) ══ -->
+<section id="hero">
+  <div class="kawung-bg" id="heroKawung"></div>
+  <div class="hero-bg-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <div class="hero-logo">
+        <div class="hero-logo-inner">
+          <img src="logo.png" alt="HIMPRENEUR Logo">
+        </div>
+      </div>
+    </div>
+    <p class="hero-eyebrow">BINUS University — Bandung</p>
+    <h1 class="hero-title">HIMPRENEUR</h1>
+    <p class="hero-org">Himpunan Mahasiswa Entrepreneur</p>
+    <p class="hero-slogan">
+      <span class="hero-slogan-dash">—</span>
+      <span id="typewriter"></span><span class="tw-cursor"></span>
+      <span class="hero-slogan-dash">—</span>
+    </p>
+  </div>
+  <!-- Stats pinned to bottom of hero -->
+  <div id="stats">
+    <div class="stats-grid">
+      <div class="stat-card fade-in">
+        <div class="stat-number"><span class="stat-count" data-target="68">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Anggota Aktif</div>
+        <div class="stat-bar"></div>
+      </div>
+      <div class="stat-card fade-in" style="transition-delay:0.1s">
+        <div class="stat-number"><span class="stat-count" data-target="2017">0</span></div>
+        <div class="stat-label">Tahun Berdiri</div>
+        <div class="stat-bar"></div>
+      </div>
+      <div class="stat-card fade-in" style="transition-delay:0.2s">
+        <div class="stat-number"><span class="stat-count" data-target="15">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Program Kerja</div>
+        <div class="stat-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROFILE ══ -->
+<section id="profile">
+  <div class="container"><div class="section-inner">
+    <div class="fade-in" style="text-align:center">
+      <h2 class="section-title">Latar Belakang</h2>
+      <div class="gold-divider center"></div>
+    </div>
+    <div class="profile-photo fade-in-scale">
+      <img src="kepengurusan/dpi.webp" alt="Dewan Pengurus Inti HIMPRENEUR 2026/2027" loading="lazy">
+    </div>
+    <div class="profile-grid">
+      <div class="profile-text fade-in-left">
+        <p>Himpunan Mahasiswa Entrepreneur (HIMPRENEUR) adalah organisasi mahasiswa wirausaha yang dinamis dan terintegrasi di lingkungan BINUS University, secara khusus ditujukan bagi mahasiswa Binus Business School di kampus BINUS@Bandung.</p>
+        <p>Kami hadir sebagai wadah untuk mencetak individu yang tidak hanya unggul dan cerdas, tetapi juga memiliki karakter kuat dan daya saing tinggi dalam dunia kewirausahaan.</p>
+      </div>
+      <div class="fade-in-right">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">2017</div>
+            <div class="timeline-content"><h4>Pendirian</h4><p>HIMPRENEUR BINUS@Bandung berdiri sebagai organisasi mahasiswa wirausaha, menjadi ruang pertama bagi mahasiswa Binus Business School untuk bertumbuh dan berkolaborasi.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2018</div>
+            <div class="timeline-content"><h4>Pertumbuhan Awal</h4><p>HIMPRENEUR mulai membangun program kerja terstruktur dan memperluas jaringan anggota, membentuk fondasi komunitas yang solid di lingkungan kampus.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2020</div>
+            <div class="timeline-content"><h4>Adaptasi Digital</h4><p>Di tengah pandemi, HIMPRENEUR berhasil bertransisi ke format digital — membuktikan semangat adaptif dan ketangguhan organisasi dalam menghadapi perubahan.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2022</div>
+            <div class="timeline-content"><h4>Penguatan Identitas</h4><p>Pembaruan struktur kepengurusan dan identitas brand HIMPRENEUR, dengan fokus pada kolaborasi eksternal dan pengembangan program berbasis wirausaha.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">Kini</div>
+            <div class="timeline-content"><h4>Berkembang &amp; Berdampak</h4><p>HIMPRENEUR terus tumbuh sebagai komunitas entrepreneur terkemuka di BINUS@Bandung, melahirkan wirausaha muda yang unggul, kreatif, dan berdampak nyata.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══ STRUKTUR ORGANISASI ══ -->
+<section id="struktur">
+  <div class="kawung-bg kawung-bg-dark"></div>
+  <div class="container"><div class="section-inner">
+
+    <!-- Header -->
+    <div class="struktur-intro fade-in">
+      <h2 class="section-title">Struktur Organisasi</h2>
+      <div class="gold-divider center"></div>
+      <p class="section-subtitle" style="margin:0 auto">Insan-insan terpilih yang menggerakkan roda HIMPRENEUR periode 2025/2026.</p>
+    </div>
+
+    <div class="org-chart">
+     <div class="org-chart-inner">
+
+      <!-- ROW 1 : Ketua -->
+      <div class="oc-row-ketua fade-in-scale" style="width:100%">
+        <div class="oc-card oc-ketua">
+          <div class="oc-card-photo">👤</div>
+          <div class="oc-jabatan">Ketua Regional Bandung</div>
+          <div class="oc-nama">M. Athallah Nadhif Dinev</div>
+        </div>
+      </div>
+
+      <!-- ROW 2 : vline turun dari Ketua -->
+      <div class="oc-vline" style="height:32px"></div>
+
+      <!-- ROW 3 : Sekretaris — hbar dua arah — Bendahara -->
+      <div class="oc-row-sekben fade-in" style="width:100%;gap:0">
+        <div class="fade-in-left stagger-1">
+          <div class="oc-card oc-sekben">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Sekretaris</div>
+            <div class="oc-nama">Zia Ariezka Imran</div>
+          </div>
+        </div>
+        <div class="oc-sekben-hbar"></div>
+        <div class="fade-in-right stagger-1">
+          <div class="oc-card oc-sekben">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Bendahara</div>
+            <div class="oc-nama">Belva Allya Zahra</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 4 : vline turun ke trunk -->
+      <div class="oc-vline" style="height:32px"></div>
+
+      <!-- ROW 5 : 6 divisi — Koordinator di atas, Wakil di bawah -->
+      <div class="oc-row-koor">
+        <!-- trunk horizontal -->
+        <div class="oc-trunk"></div>
+
+        <div class="oc-koor-col fade-in-up stagger-1">
+          <div class="oc-card oc-koor">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Koordinator</div>
+            <div class="oc-nama">Mohammad Kausar Lutfie</div>
+            <div class="oc-divisi">EduPreneur</div>
+          </div>
+          <div class="oc-koor-vline"></div>
+          <div class="oc-card oc-wakil">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Wakil Koordinator</div>
+            <div class="oc-nama">Naja Inayati Fasya</div>
+            <div class="oc-divisi">EduPreneur</div>
+          </div>
+        </div>
+
+        <div class="oc-koor-col fade-in-up stagger-2">
+          <div class="oc-card oc-koor">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Koordinator</div>
+            <div class="oc-nama">Ubay Manarul Hidayat</div>
+            <div class="oc-divisi">Multimedia</div>
+          </div>
+          <div class="oc-koor-vline"></div>
+          <div class="oc-card oc-wakil">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Wakil Koordinator</div>
+            <div class="oc-nama">Shinta Wulansari</div>
+            <div class="oc-divisi">Multimedia</div>
+          </div>
+        </div>
+
+        <div class="oc-koor-col fade-in-up stagger-3">
+          <div class="oc-card oc-koor">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Koordinator</div>
+            <div class="oc-nama">Sabryna Dellya Putri</div>
+            <div class="oc-divisi">Relation</div>
+          </div>
+          <div class="oc-koor-vline"></div>
+          <div class="oc-card oc-wakil">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Wakil Koordinator</div>
+            <div class="oc-nama">Razzan Musyaffa Shaquile</div>
+            <div class="oc-divisi">Relation</div>
+          </div>
+        </div>
+
+        <div class="oc-koor-col fade-in-up stagger-4">
+          <div class="oc-card oc-koor">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Koordinator</div>
+            <div class="oc-nama">Alif Sulaimana Mustang</div>
+            <div class="oc-divisi">Project Officer</div>
+          </div>
+          <div class="oc-koor-vline"></div>
+          <div class="oc-card oc-wakil">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Wakil Koordinator</div>
+            <div class="oc-nama">Firmansyah Pratama Putra Johan</div>
+            <div class="oc-divisi">Project Officer</div>
+          </div>
+        </div>
+
+        <div class="oc-koor-col fade-in-up stagger-5">
+          <div class="oc-card oc-koor">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Koordinator</div>
+            <div class="oc-nama">Axlsius Hwoarang</div>
+            <div class="oc-divisi">HRD</div>
+          </div>
+          <div class="oc-koor-vline"></div>
+          <div class="oc-card oc-wakil">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Wakil Koordinator</div>
+            <div class="oc-nama">Shaumy Rashikafathi Indrakomara</div>
+            <div class="oc-divisi">HRD</div>
+          </div>
+        </div>
+
+        <div class="oc-koor-col fade-in-up stagger-6">
+          <div class="oc-card oc-koor">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Koordinator</div>
+            <div class="oc-nama">Leonardo De Isal</div>
+            <div class="oc-divisi">Business Dev.</div>
+          </div>
+          <div class="oc-koor-vline"></div>
+          <div class="oc-card oc-wakil">
+            <div class="oc-card-photo">👤</div>
+            <div class="oc-jabatan">Wakil Koordinator</div>
+            <div class="oc-nama">Muhammad Alwy Aulia</div>
+            <div class="oc-divisi">Business Dev.</div>
+          </div>
+        </div>
+      </div>
+
+     </div><!-- /org-chart-inner -->
+    </div><!-- /org-chart -->
+
+    <p class="org-edit-hint fade-in">✏️ Ganti nama, jabatan, foto, dan divisi sesuai kepengurusan aktif HIMPRENEUR.</p>
+
+    <!-- Staff per divisi: kartu carousel -->
+    <div class="staff-section">
+      <div class="struktur-intro fade-in" style="margin-bottom:0">
+        <h3 class="section-title" style="font-size:30px">Staff per Divisi</h3>
+        <div class="gold-divider center"></div>
+        <p class="section-subtitle" style="margin:0 auto">Tekan tombol panah pada kartu untuk berganti foto staff tiap divisi.</p>
+      </div>
+      <div class="staff-grid" id="staffGrid"></div>
+    </div>
+
+  </div></div>
+</section>
+
+<!-- ══ PILLARS ══ -->
+<section id="pillars" class="clip-both">
+  <div class="kawung-bg"></div>
+  <div class="container"><div class="section-inner">
+    <div class="fade-in" style="text-align:center">
+      <h2 class="section-title" style="color:var(--text-on-dark)">Empat Pilar Utama</h2>
+      <div class="gold-divider center"></div>
+      <p class="section-subtitle" style="color:var(--text-on-dark-muted);margin:0 auto">Setiap langkah kami berlandaskan pada empat pilar yang menjadi panduan dalam setiap gerak HIMPRENEUR.</p>
+    </div>
+    <div class="pillars-grid fade-in" style="transition-delay:0.2s">
+
+      <div class="pillar-card">
+        <div class="pillar-mascot">
+          <div class="pillar-tooltip">"Bersama kita lebih kuat!"</div>
+          <img src="mascot-community.png" alt="Maskot Community">
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-number">01</div>
+          <div class="pillar-title">Community</div>
+          <p class="pillar-desc">Membangun komunitas yang kuat dan suportif bagi seluruh mahasiswa entrepreneur BINUS.</p>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-mascot">
+          <div class="pillar-tooltip">"Ide baru setiap hari!"</div>
+          <img src="mascot-innovation.png" alt="Maskot Innovation">
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-number">02</div>
+          <div class="pillar-title">Innovation</div>
+          <p class="pillar-desc">Mendorong lahirnya ide-ide baru yang inovatif sebagai penggerak kemajuan bersama.</p>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-mascot">
+          <div class="pillar-tooltip">"Siap menghadapi perubahan!"</div>
+          <img src="mascot-adaptive.png" alt="Maskot Adaptive">
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-number">03</div>
+          <div class="pillar-title">Adaptive</div>
+          <p class="pillar-desc">Membentuk pribadi yang mampu beradaptasi dengan perubahan di era yang terus bergerak.</p>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-mascot">
+          <div class="pillar-tooltip">"Kreativitas tanpa batas!"</div>
+          <img src="mascot-creative.png" alt="Maskot Creative">
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-number">04</div>
+          <div class="pillar-title">Creative</div>
+          <p class="pillar-desc">Mengasah kreativitas tanpa batas dalam berwirausaha untuk menciptakan dampak nyata.</p>
+        </div>
+      </div>
+
+    </div>
+  </div></div>
+</section>
+
+<!-- ══ VISION & MISSION ══ -->
+<section id="vision" class="clip-both">
+  <div class="kawung-bg kawung-bg-dark"></div>
+  <div class="container"><div class="section-inner">
+    <div class="fade-in" style="text-align:center;margin-bottom:0">
+      <h2 class="section-title">Visi &amp; Misi</h2>
+      <div class="gold-divider center"></div>
+    </div>
+    <div class="vm-grid">
+      <div class="vm-card fade-in-left">
+        <div class="vm-label">Vision</div>
+        <h3>Visi</h3>
+        <p>Menjadi organisasi kreatif dan solid yang dapat menjadi sarana untuk menciptakan insan yang unggul, berkarakter, cerdas, dan kompetitif. HIMPRENEUR berfokus pada pengembangan kompetensi berwirausaha dan peningkatan relasi dengan pihak internal maupun eksternal. Organisasi ini berupaya memberikan kontribusi positif bagi masyarakat sekitar dengan menjunjung nilai-nilai budaya lokal Indonesia.</p>
+      </div>
+      <div class="vm-card fade-in-right">
+        <div class="vm-label">Mission</div>
+        <h3>Misi</h3>
+        <ul>
+          <li>Menjalin hubungan dan komunikasi yang sinergis di lingkungan kampus dan masyarakat luas.</li>
+          <li>Menampung dan memfasilitasi aspirasi untuk peningkatan kompetensi akademik dan non-akademik mahasiswa.</li>
+          <li>Mengembangkan kreativitas dan solidaritas mahasiswa melalui berbagai kegiatan positif.</li>
+          <li>Merancang dan melaksanakan program kerja yang bermanfaat bagi mahasiswa dan masyarakat sekitar.</li>
+        </ul>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══ PROGRAMS SLIDER ══ -->
+<section id="programs" class="clip-up">
+  <div class="container"><div class="section-inner">
+    <div class="programs-header fade-in">
+      <h2 class="section-title">Kegiatan HIMPRENEUR</h2>
+      <div class="gold-divider"></div>
+      <p class="section-subtitle">Program kerja dan kegiatan unggulan yang dirancang untuk mengembangkan kompetensi dan kreativitas anggota. Geser untuk melihat lebih banyak.</p>
+    </div>
+    <div class="slider-outer fade-in" style="transition-delay:0.15s">
+      <div class="slider-track" id="sliderTrack">
+        <div class="program-card" role="button" tabindex="0" onclick="openModal(0)">
+          <div class="program-photo"><img src="progja/prog1_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 1</span></div></div>
+          <div class="program-body"><span class="program-tag">Edupreneur</span><h4>Binus Business Competition 2026</h4><p>Kompetisi bisnis siswa SMA bertema Greenovation — teknologi untuk solusi bisnis berkelanjutan.</p><div class="program-date">📅 <span>2026</span></div><button class="btn-outline">Selengkapnya</button></div>
+        </div>
+        <div class="program-card" role="button" tabindex="0" onclick="openModal(1)">
+          <div class="program-photo"><img src="progja/prog2_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 2</span></div></div>
+          <div class="program-body"><span class="program-tag">Edupreneur</span><h4>Mahasiswa Mengajar</h4><p>Berbagi ilmu, pengalaman, dan motivasi bersama siswa SMAN 4 Bandung.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
+        </div>
+        <div class="program-card" role="button" tabindex="0" onclick="openModal(2)">
+          <div class="program-photo"><img src="progja/prog3_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 3</span></div></div>
+          <div class="program-body"><span class="program-tag">Pengabdian Masyarakat</span><h4>PKM Desa Wringinanom</h4><p>Pengabdian masyarakat kolaborasi HIMPRENEUR Bandung × Malang di Desa Wringinanom.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
+        </div>
+        <div class="program-card" role="button" tabindex="0" onclick="openModal(3)">
+          <div class="program-photo"><img src="progja/prog4_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 4</span></div></div>
+          <div class="program-body"><span class="program-tag">Multimedia × Relation</span><h4>HIMPRE VISIT: Dua Dadu</h4><p>Kunjungan ke Dua Dadu, brand pakaian anak milik para Binusian 2026.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
+        </div>
+        <div class="program-card" role="button" tabindex="0" onclick="openModal(4)">
+          <div class="program-photo"><img src="progja/prog5_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 5</span></div></div>
+          <div class="program-body"><span class="program-tag">Multimedia × Relation</span><h4>HIMPRE VISIT: Earthy Genova</h4><p>Kunjungan ke Earthy Genova, brand denim lokal milik Rico Maulana.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
+        </div>
+        <div class="program-card" role="button" tabindex="0" onclick="openModal(5)">
+          <div class="program-photo"><img src="progja/prog6_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 6</span></div></div>
+          <div class="program-body"><span class="program-tag">Business Development</span><h4>Warung HIMPRENEUR</h4><p>Anggota terjun langsung ke operasional bisnis nyata bersama Business Development.</p><div class="program-date">📅 <span>2025</span></div><button class="btn-outline">Selengkapnya</button></div>
+        </div>
+        <div class="program-card" role="button" tabindex="0" onclick="openModal(6)">
+          <div class="program-photo"><img src="progja/prog7_1.webp" alt="" loading="lazy" onerror="this.remove()"><div class="kawung-bg"></div><div class="photo-label"><div style="font-size:28px;margin-bottom:6px">📷</div><span style="position:relative;z-index:1;font-size:11px">Foto Kegiatan 7</span></div></div>
+          <div class="program-body"><span class="program-tag">Kebersamaan</span><h4>Venture Vista</h4><p>Kebersamaan HIMPRENEUR di Villa Bale Markisa untuk mempererat antaranggota.</p><div class="program-date">📅 <span>10 Mei 2025</span></div><button class="btn-outline">Selengkapnya</button></div>
+        </div>
+      </div>
+      <div class="slider-nav">
+        <button class="slider-arrow" id="prevBtn" onclick="slidePrograms(-1)" aria-label="Sebelumnya">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-arrow" id="nextBtn" onclick="slidePrograms(1)" aria-label="Berikutnya">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══ MODAL ══ -->
+<div class="program-modal-overlay" id="programModal" onclick="closeModalOutside(event)">
+  <div class="program-modal">
+    <div class="modal-close"><button class="modal-close-btn" onclick="closeModal()" aria-label="Tutup">✕</button></div>
+    <div class="modal-photos" id="modalPhotos"></div>
+    <div class="modal-body">
+      <span class="modal-tag" id="modalTag">Angkatan 2025</span>
+      <h2 id="modalTitle">Program Kerja</h2>
+      <div class="modal-date" id="modalDate">📅 <span>Tanggal TBD</span></div>
+      <div class="modal-divider"></div>
+      <p id="modalDesc">Deskripsi lengkap kegiatan.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GALLERY ══ -->
+<section id="gallery">
+  <div class="container"><div class="section-inner">
+    <div class="fade-in" style="text-align:center">
+      <h2 class="section-title">Foto Kepengurusan</h2>
+      <div class="gold-divider center"></div>
+      <p class="section-subtitle"></p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="kepengurusan/multimedia.webp" alt="Tim Divisi Multimedia HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Multimedia</span></div>
+      <div class="gallery-item"><img src="kepengurusan/relation.webp" alt="Tim Divisi Relation HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Relation</span></div>
+      <div class="gallery-item"><img src="kepengurusan/edupreneur.webp" alt="Tim Divisi EduPreneur HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">EduPreneur</span></div>
+      <div class="gallery-item"><img src="kepengurusan/hrd.webp" alt="Tim Divisi HRD HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">HRD</span></div>
+      <div class="gallery-item"><img src="kepengurusan/business-development.webp" alt="Tim Divisi Business Development HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Business Development</span></div>
+      <div class="gallery-item"><img src="kepengurusan/project-officer.webp" alt="Tim Divisi Project Officer HIMPRENEUR 2026/2027" loading="lazy" onerror="this.remove()"><span class="gallery-item-label">Project Officer</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="kawung-bg"></div>
+  <div class="container"><div class="section-inner">
+    <div class="contact-inner">
+      <div class="contact-left fade-in-left">
+          <h2 class="section-title">Contact Person</h2>
+        <div class="gold-divider"></div>
+        <p class="section-subtitle">Ada pertanyaan tentang HIMPRENEUR? Kami siap membantu.</p>
+        <div class="social-links">
+          <a class="social-btn" href="https://www.instagram.com/himpreneur/" target="_blank" rel="noopener" title="Instagram @himpreneur">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.tiktok.com/@himpreneur" target="_blank" rel="noopener" title="TikTok @himpreneur">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.77 1.52V6.76a4.85 4.85 0 01-1-.07z"/></svg>
+          </a>
+          <a class="social-btn" href="https://wa.me/6283817317513" target="_blank" rel="noopener" title="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="contact-card fade-in-right">
+        <div class="contact-item">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg></div>
+          <div class="contact-info">
+            <label>Contact Person</label>
+            <a href="https://wa.me/6283817317513" target="_blank" rel="noopener">+62 838-1731-7513 — Sabryna Dellya Putri</a>
+            <a href="https://wa.me/6281313536533" target="_blank" rel="noopener">+62 813-1353-6533 — Tsaniya Hasya Firdaus</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="contact-info">
+            <label>Email</label>
+            <a href="mailto:himpreneur204@gmail.com">himpreneur204@gmail.com</a>
+            <a href="mailto:himpreneur@binus.ac.id">himpreneur@binus.ac.id</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="contact-info"><label>Lokasi</label><span>BINUS University @Bandung</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+          <div class="contact-info"><label>Instagram</label><a href="https://www.instagram.com/himpreneur/" target="_blank" rel="noopener">@himpreneur</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.77 1.52V6.76a4.85 4.85 0 01-1-.07z"/></svg></div>
+          <div class="contact-info"><label>TikTok</label><a href="https://www.tiktok.com/@himpreneur" target="_blank" rel="noopener">@himpreneur</a></div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="kawung-bg" style="opacity:0.03"></div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo-full.png" alt="HIMPRENEUR BINUS Bandung" style="height:64px;width:auto;margin-bottom:12px;">
+        <p>— To the Move and Beyond —</p>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,0.35);margin-top:8px;font-style:normal">Himpunan Mahasiswa Entrepreneur<br>BINUS University @Bandung</p>
+      </div>
+      <div class="footer-nav">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#profile">Profil</a></li>
+          <li><a href="#struktur">Struktur Organisasi</a></li>
+          <li><a href="#pillars">Empat Pilar</a></li>
+          <li><a href="#vision">Visi &amp; Misi</a></li>
+          <li><a href="#programs">Kegiatan</a></li>
+          <li><a href="#gallery">Galeri</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav">
+        <h4>Kampus &amp; Sosial</h4>
+        <ul>
+          <li><a href="https://binus.ac.id/bandung/" target="_blank" rel="noopener">BINUS @Bandung</a></li>
+          <li><a href="https://binus.ac.id/bandung/" target="_blank" rel="noopener">Creativepreneurship</a></li>
+          <li><a href="https://binus.ac.id/bandung/" target="_blank" rel="noopener">Digital Business Innovation</a></li>
+          <li><a href="https://www.instagram.com/himpreneur/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@himpreneur" target="_blank" rel="noopener">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 HIMPRENEUR BINUS University. All rights reserved.</p>
+      <div class="footer-creators"><strong>Dibuat oleh</strong><span class="footer-creators-brand"><img src="heymoro-o.webp" alt="" width="16" height="16" loading="lazy">HeyMoro</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ THEME SWITCHER ══ -->
+<div id="theme-switcher">
+  <div class="theme-panel" id="theme-panel">
+    <h4>Pilih Tema</h4>
+    <button class="theme-option active" onclick="setTheme('navy')" id="theme-navy"><span class="theme-swatch" style="background:linear-gradient(135deg,#0A1628,#C9A96E)"></span>Navy + Gold</button>
+    <button class="theme-option" onclick="setTheme('maroon')" id="theme-maroon"><span class="theme-swatch" style="background:linear-gradient(135deg,#6B0D17,#C9A96E)"></span>Maroon + Gold</button>
+    <button class="theme-option" onclick="setTheme('white')" id="theme-white"><span class="theme-swatch" style="background:linear-gradient(135deg,#f5f5f5,#1B2A4A)"></span>Light / White</button>
+  </div>
+  <button class="theme-toggle-btn" onclick="toggleThemePanel()" title="Ganti Tema" aria-label="Ganti Tema">🎨</button>
+</div>
+
+<script>
+/* ════════════════════════════════════
+   PROGRAM DATA
+   ════════════════════════════════════ */
+const programs = [
+  { tag:'Edupreneur', title:'Binus Business Competition 2026', date:'2026',
+    desc:'BINUS Business Competition (BBC) 2026 merupakan program kerja Divisi Edupreneur yang menghadirkan kompetisi bisnis bagi siswa-siswi SMA dengan tema “Greenovation: Transforming the Environment with Emerging Technology for Sustainable Business.” Kegiatan ini bertujuan untuk mendorong generasi muda mengembangkan ide bisnis inovatif yang memanfaatkan teknologi dalam menciptakan solusi berkelanjutan bagi lingkungan.\n\nMelalui kompetisi ini, peserta ditantang untuk berpikir kreatif, solutif, dan berani menuangkan gagasan bisnis yang mampu memberikan dampak positif bagi masa depan. BINUS Business Competition 2026 menjadi wadah bagi para siswa untuk mengasah kemampuan berwirausaha, berpikir kritis, serta meningkatkan kesadaran akan pentingnya keberlanjutan dalam dunia bisnis.', photos:['progja/prog1_1.webp','progja/prog1_2.webp'] },
+  { tag:'Edupreneur', title:'Mahasiswa Mengajar', date:'2025',
+    desc:'Program kerja Mahasiswa Mengajar di SMAN 4 Bandung merupakan bentuk kontribusi nyata mahasiswa dalam mendukung proses pembelajaran sekaligus berbagi ilmu, pengalaman, dan motivasi kepada para siswa. Kegiatan ini dilaksanakan melalui sesi pembelajaran, sharing session, dan diskusi interaktif yang melibatkan mahasiswa serta siswa secara aktif.\n\nDalam pelaksanaannya, mahasiswa tidak hanya berperan sebagai pengajar, tetapi juga sebagai teman belajar yang mendorong semangat, kepercayaan diri, dan motivasi siswa untuk meraih cita-cita mereka. Kegiatan ini diharapkan dapat memberikan dampak positif bagi siswa serta menjadi langkah awal untuk kontribusi yang lebih luas di masa mendatang.', photos:['progja/prog2_1.webp','progja/prog2_2.webp'] },
+  { tag:'Pengabdian Masyarakat', title:'PKM Desa Wringinanom: Bridging Impact and Connection', date:'2025',
+    desc:'Kegiatan pengabdian kepada masyarakat (PKM) di Desa Wringinanom, Malang. Program ini merupakan hasil kolaborasi antara HIMPRENEUR BINUS Bandung dan HIMPRENEUR BINUS Malang yang tidak hanya fokus pada kontribusi sosial, tetapi juga menjadi wadah pengabdian yang dibalut dengan kebersamaan.\n\nMelalui perjalanan sejauh 745 KM ini, kami berkesempatan untuk mengenal lebih dekat rekan-rekan HIMPRENEUR dari regional Malang. Sesi pengabdian kali ini terasa berbeda karena diisi dengan kegiatan bonding, bermain bersama, dan berdiskusi santai untuk mempererat solidaritas antar regional.', photos:['progja/prog3_1.webp','progja/prog3_2.webp'] },
+  { tag:'Multimedia × Relation', title:'HIMPRE VISIT: Dua Dadu', date:'2025',
+    desc:'Kegiatan kunjungan HIMPRENEUR ke Dua Dadu, sebuah brand pakaian anak yang dijalankan oleh para Binusian 2026: Kak Sharla, Kak Arya, dan Kak Tabina. Kolaborasi antara divisi Multimedia dan Relation ini bertujuan untuk menggali lebih dalam mengenai proses pengembangan brand lokal di pasar kategori pakaian anak.\n\nSesi kunjungan diisi dengan interview dan sharing mengenai konsep Dua Dadu yang mengusung desain timeless namun tetap trendi, serta bagaimana mereka memastikan produk tetap ramah untuk anak-anak. Melalui diskusi ini, tim mendapatkan banyak insight baru tentang operasional bisnis dari sudut pandang sesama mahasiswa pengusaha. Terima kasih kepada Kak Sharla, Kak Arya, dan Kak Tabina atas waktu dan ilmu yang telah dibagikan.', photos:['progja/prog4_1.webp','progja/prog4_2.webp'] },
+  { tag:'Multimedia × Relation', title:'HIMPRE VISIT: Earthy Genova', date:'2025',
+    desc:'Kegiatan kunjungan HIMPRENEUR ke Earthy Genova, brand denim lokal milik Rico Maulana (Binusian 25). Kolaborasi antara divisi Multimedia dan Relation ini diisi dengan sesi interview dan sharing santai mengenai perjalanan membangun bisnis di industri fashion.\n\nBanyak wawasan menarik yang didapat langsung dari tim Earthy Genova mengenai proses kreatif hingga operasional di balik layar. Terima kasih kepada Rico Maulana dan tim atas kesempatan untuk berdiskusi dan berbagi pengalaman berwirausaha.', photos:['progja/prog5_1.webp','progja/prog5_2.webp'] },
+  { tag:'Business Development', title:'Warung HIMPRENEUR', date:'2025',
+    desc:'Warung HIMPRENEUR merupakan program kerja Divisi Business Development yang memberikan kesempatan kepada anggota untuk terlibat langsung dalam kegiatan operasional bisnis. Kegiatan ini menjadi sarana pembelajaran praktis bagi tim untuk memahami proses bisnis melalui pengalaman nyata di lapangan.\n\nMelalui operasional Warung HIMPRENEUR, tim berkesempatan berinteraksi langsung dengan pembeli serta menjalankan berbagai aktivitas operasional sebagai bentuk implementasi program pengembangan bisnis yang sedang berjalan. Kegiatan ini diharapkan dapat meningkatkan pemahaman dan keterampilan anggota dalam mengelola bisnis sekaligus memberikan pengalaman berharga dalam dunia usaha.', photos:['progja/prog6_1.webp','progja/prog6_2.webp'] },
+  { tag:'Kebersamaan', title:'Venture Vista', date:'10 Mei 2025',
+    desc:'Venture Vista yang dilaksanakan pada 10 Mei 2025 merupakan kegiatan kebersamaan HIMPRENEUR yang bertujuan untuk mempererat hubungan antaranggota melalui berbagai aktivitas santai dan interaktif. Kegiatan ini menjadi momen bagi seluruh peserta untuk beristirahat sejenak dari rutinitas, membangun kedekatan, serta menciptakan pengalaman yang menyenangkan bersama.\n\nBertempat di Villa Bale Markisa, kegiatan ini diisi dengan berbagai permainan, sesi kebersamaan, dan aktivitas rekreasi yang memungkinkan anggota HIMPRENEUR untuk saling mengenal lebih dekat serta memperkuat rasa kekeluargaan dalam organisasi. Venture Vista menjadi wadah untuk membangun kekompakan tim, me-recharge semangat kebersamaan, dan menciptakan kenangan berharga yang dapat mendukung kolaborasi yang lebih baik di masa mendatang.', photos:['progja/prog7_1.webp','progja/prog7_2.webp'] }
+];
+
+/* ════════════════════════════════════
+   LOADING SCREEN — lightbulb flash reveal
+   ════════════════════════════════════ */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  const flash  = document.getElementById('loader-flash');
+  const hero   = document.getElementById('hero');
+
+  // Step 1 — wait for loader display (2s), then begin flash sequence
+  setTimeout(() => {
+
+    // Step 2 — logo pulses bright (intensify glow on loader logo)
+    const loaderLogo = loader.querySelector('.loader-logo');
+    loaderLogo.style.transition = 'filter 0.25s ease, transform 0.25s ease';
+    loaderLogo.style.filter = 'drop-shadow(0 0 40px #fff) drop-shadow(0 0 80px #C9A96E) brightness(1.8)';
+    loaderLogo.style.transform = 'scale(1.15)';
+
+    // Step 3 — white flash explodes outward (0.25s after glow)
+    setTimeout(() => {
+      flash.style.transition = 'opacity 0.18s ease-out';
+      flash.style.opacity = '1';
+
+      // Step 4 — hide loader instantly while white
+      setTimeout(() => {
+        loader.style.display = 'none';
+        hero.style.opacity = '0';
+
+        // Step 5 — white fades out revealing dark hero
+        flash.style.transition = 'opacity 0.6s ease-in';
+        flash.style.opacity = '0';
+
+        // Step 6 — hero fades in from dark as white clears
+        setTimeout(() => {
+          hero.style.transition = 'opacity 0.7s ease';
+          hero.style.opacity = '1';
+          document.body.classList.add('cursor-ready');
+          initTypewriter();
+
+          // Step 7 — remove flash div from DOM after done
+          setTimeout(() => flash.remove(), 800);
+        }, 100);
+
+      }, 180);
+    }, 250);
+
+  }, 800);
+});
+
+/* ════════════════════════════════════
+   CUSTOM CURSOR + TRAIL
+   ════════════════════════════════════ */
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+const TRAIL_COUNT = 6;
+const trails = [];
+
+for (let i = 0; i < TRAIL_COUNT; i++) {
+  const t = document.createElement('div');
+  t.className = 'cursor-trail';
+  t.style.cssText = `width:${8 - i}px;height:${8 - i}px;opacity:${0.5 - i * 0.07};z-index:${9996 - i};`;
+  document.body.appendChild(t);
+  trails.push({ el: t, x: -100, y: -100 });
+}
+
+let mx = -100, my = -100;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  ring.style.left = mx + 'px'; ring.style.top = my + 'px';
+});
+
+document.addEventListener('mousedown', () => {
+  dot.style.width = '14px'; dot.style.height = '14px';
+  ring.style.width = '20px'; ring.style.height = '20px';
+});
+document.addEventListener('mouseup', () => {
+  dot.style.width = '10px'; dot.style.height = '10px';
+  ring.style.width = '32px'; ring.style.height = '32px';
+});
+
+// Hover effect on links/buttons
+document.querySelectorAll('a, button, [onclick]').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.width = '48px'; ring.style.height = '48px';
+    ring.style.borderColor = 'rgba(201,169,110,0.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.width = '32px'; ring.style.height = '32px';
+    ring.style.borderColor = 'rgba(201,169,110,0.5)';
+  });
+});
+
+function animCursor() {
+  trails[0].x += (mx - trails[0].x) * 0.5;
+  trails[0].y += (my - trails[0].y) * 0.5;
+  for (let i = 1; i < trails.length; i++) {
+    trails[i].x += (trails[i-1].x - trails[i].x) * 0.4;
+    trails[i].y += (trails[i-1].y - trails[i].y) * 0.4;
+  }
+  trails.forEach(t => {
+    t.el.style.left = t.x + 'px';
+    t.el.style.top = t.y + 'px';
+    t.el.style.opacity = t.el.style.opacity; // keep set opacity
+  });
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+/* ════════════════════════════════════
+   PARALLAX KAWUNG
+   ════════════════════════════════════ */
+const heroKawung = document.getElementById('heroKawung');
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  if (heroKawung) heroKawung.style.transform = `translateY(${sy * 0.3}px)`;
+}, { passive: true });
+
+/* ════════════════════════════════════
+   TYPEWRITER SLOGAN
+   ════════════════════════════════════ */
+const phrases = ['To the Move and Beyond', 'Kreatif. Solid. Berdampak.', 'Community · Innovation · Adaptive · Creative', 'Wirausaha Muda BINUS Bandung'];
+let pi = 0, ci = 0, deleting = false;
+const twEl = document.getElementById('typewriter');
+
+function initTypewriter() {
+  if (!twEl) return;
+  function type() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      twEl.textContent = phrase.slice(0, ci + 1);
+      ci++;
+      if (ci === phrase.length) { deleting = true; setTimeout(type, 2200); return; }
+    } else {
+      twEl.textContent = phrase.slice(0, ci - 1);
+      ci--;
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 35 : 75);
+  }
+  type();
+}
+
+/* PARADE REMOVED */
+
+/* ════════════════════════════════════
+   STAT COUNTERS
+   ════════════════════════════════════ */
+function animateCount(el, target, duration) {
+  const start = performance.now();
+  const from = 0;
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(from + (target - from) * ease);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const card = entry.target;
+    if (card.classList.contains('counted')) return;
+    card.classList.add('counted');
+    const countEl = card.querySelector('.stat-count');
+    if (countEl) animateCount(countEl, parseInt(countEl.dataset.target), 1800);
+    statObserver.unobserve(card);
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.stat-card').forEach(c => statObserver.observe(c));
+
+/* ════════════════════════════════════
+   SLIDER
+   ════════════════════════════════════ */
+(function() {
+  const track = document.getElementById('sliderTrack');
+  if (!track) return;
+  const cards = Array.from(track.querySelectorAll('.program-card'));
+  let cur = 0;
+
+  function visible() { return window.innerWidth <= 900 ? 1 : 3; }
+
+  function cardWidth() {
+    const rect = cards[0].getBoundingClientRect();
+    return rect.width + 24;
+  }
+
+  function moveTo(idx) {
+    const max = cards.length - visible();
+    cur = Math.max(0, Math.min(idx, max));
+    track.style.transform = 'translateX(-' + (cur * cardWidth()) + 'px)';
+    document.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    document.getElementById('prevBtn').disabled = cur === 0;
+    document.getElementById('nextBtn').disabled = cur >= cards.length - visible();
+  }
+
+  function buildDots() {
+    const el = document.getElementById('sliderDots');
+    el.innerHTML = '';
+    const count = cards.length - visible() + 1;
+    for (let i = 0; i < count; i++) {
+      const d = document.createElement('button');
+      d.className = 'slider-dot' + (i === cur ? ' active' : '');
+      d.onclick = () => moveTo(i);
+      el.appendChild(d);
+    }
+  }
+
+  window.slidePrograms = function(dir) { moveTo(cur + dir); };
+
+  // drag
+  let startX = 0, dragging = false;
+  track.addEventListener('mousedown', e => { dragging = true; startX = e.pageX; track.classList.add('dragging'); });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    if (Math.abs(e.pageX - startX) > 60) { dragging = false; track.classList.remove('dragging'); window.slidePrograms(e.pageX < startX ? 1 : -1); }
+  });
+  document.addEventListener('mouseup', () => { dragging = false; track.classList.remove('dragging'); });
+
+  // touch
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) window.slidePrograms(dx < 0 ? 1 : -1); });
+
+  window.addEventListener('resize', () => { buildDots(); moveTo(cur); });
+
+  // wait for full layout before init
+  window.addEventListener('load', () => { buildDots(); moveTo(0); });
+})();
+
+/* ════════════════════════════════════
+   MODAL
+   ════════════════════════════════════ */
+function openModal(idx) {
+  const p = programs[idx];
+  document.getElementById('modalTag').textContent = p.tag;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalDate').innerHTML = '📅 <span>' + p.date + '</span>';
+  document.getElementById('modalDesc').textContent = p.desc;
+  const photosEl = document.getElementById('modalPhotos');
+  const n = Math.min((p.photos||[]).length, 3);
+  if (n === 0) {
+    photosEl.className = 'modal-photos photos-1';
+    photosEl.innerHTML = '<div class="modal-photo-item"><div class="modal-photo-placeholder"><div style="font-size:40px;margin-bottom:8px">📷</div><div>Foto belum tersedia</div><small style="opacity:0.6">Tambahkan path foto di array programs['+idx+'].photos</small></div></div>';
+  } else {
+    photosEl.className = 'modal-photos photos-' + n;
+    photosEl.innerHTML = p.photos.slice(0,3).map((s,i) => '<div class="modal-photo-item"><img src="'+s+'" alt="Foto '+(i+1)+'" onerror="this.parentElement.innerHTML=\'<div class=\\\'modal-photo-placeholder\\\'>📷 Foto tidak ditemukan</div>\'"></div>').join('');
+  }
+  document.getElementById('programModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() { document.getElementById('programModal').classList.remove('open'); document.body.style.overflow = ''; }
+function closeModalOutside(e) { if (e.target === document.getElementById('programModal')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+// program cards operable by keyboard (Enter / Space)
+document.querySelectorAll('.program-card').forEach((card, i) => {
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(i); }
+  });
+});
+
+/* ════════════════════════════════════
+   NAVBAR
+   ════════════════════════════════════ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+  updateActiveNav();
+}, { passive: true });
+
+function updateActiveNav() {
+  const sections = ['profile','struktur','pillars','vision','programs','gallery','contact'];
+  const sp = window.scrollY + 100;
+  sections.forEach(id => {
+    const el = document.getElementById(id); if (!el) return;
+    const link = document.querySelector('.nav-links a[href="#'+id+'"]');
+    if (link) link.classList.toggle('active', sp >= el.offsetTop && sp < el.offsetTop + el.offsetHeight);
+  });
+}
+function toggleMobileNav() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+  document.getElementById('mobile-overlay').classList.toggle('open');
+}
+
+/* ════════════════════════════════════
+   STAFF PER DIVISI (carousel)
+   ════════════════════════════════════ */
+(function() {
+  const grid = document.getElementById('staffGrid');
+  if (!grid) return;
+
+  // Data anggota tiap divisi. Field: n=nama, j=jurusan, a=angkatan, id=NIM, p=foto ('' = placeholder).
+  const DBI = 'Digital Business Innovation', CRV = 'Creativepreneurship';
+  const divisiStaff = [
+    ['EduPreneur', [
+      { n:'Mohammad Kausar Lutfie', j:DBI, a:'2024', id:'2802544476', p:'' },
+      { n:'Naja Inayati Fasya', j:DBI, a:'2024', id:'2802551563', p:'' },
+      { n:'Febi Angelita', j:CRV, a:'2025', id:'2902646806', p:'' },
+      { n:'Hafidz Zamzam Kurnia', j:DBI, a:'2025', id:'2902741505', p:'' },
+      { n:'Ferdiana Nayla Putri Aria', j:DBI, a:'2025', id:'2902676595', p:'' },
+      { n:'Florence Dauhan', j:CRV, a:'2025', id:'2902580526', p:'' },
+      { n:'Felicia Christina Zai', j:CRV, a:'2025', id:'2902700070', p:'' },
+    ]],
+    ['Multimedia', [
+      { n:'Ubay Manarul Hidayat', j:DBI, a:'2024', id:'2802539210', p:'' },
+      { n:'Shinta Wulansari', j:DBI, a:'2025', id:'2902714315', p:'' },
+      { n:'Daniel Joshua Kurniawan', j:DBI, a:'2025', id:'2902656473', p:'' },
+      { n:'Azalia Renata Pardosi', j:DBI, a:'2025', id:'2902641995', p:'' },
+      { n:'Alex Sabrina Caysan', j:DBI, a:'2025', id:'2902562302', p:'' },
+      { n:'Amando Malik Vahlevy', j:DBI, a:'2025', id:'2902629226', p:'' },
+      { n:'Putri Vellika', j:CRV, a:'2025', id:'2902634415', p:'' },
+      { n:'Cornelia Putri Chiavanda', j:DBI, a:'2025', id:'2902619093', p:'' },
+      { n:'Kayla Tazkiyah Azzahra', j:CRV, a:'2025', id:'2902688102', p:'' },
+      { n:'Ratu Alzena Levia Khoirunnisa', j:CRV, a:'2025', id:'2902614193', p:'' },
+      { n:'Visio Amadeus Noya', j:CRV, a:'2025', id:'2902654921', p:'' },
+      { n:'Nazwa Az-Zahra Nurrmadani Putri', j:DBI, a:'2025', id:'2902694572', p:'' },
+    ]],
+    ['Relation', [
+      { n:'Sabryna Dellya Putri', j:CRV, a:'2024', id:'2802456611', p:'' },
+      { n:'Razzan Musyaffa Shaquile', j:DBI, a:'2024', id:'2802456574', p:'' },
+      { n:'Muhammad Zelva Putra Sandri', j:CRV, a:'2025', id:'2902603536', p:'' },
+      { n:'Rachel Vanya Permana', j:DBI, a:'2025', id:'2902731271', p:'' },
+      { n:'Tsaniya Hasya Firdaus', j:CRV, a:'2025', id:'2902611411', p:'' },
+      { n:'Billi Salim', j:DBI, a:'2025', id:'2902581642', p:'' },
+      { n:'Chelsealy Diyanti Kusumah', j:DBI, a:'2025', id:'2902709662', p:'' },
+      { n:'Adinda Veliska Ramadhani Gunawan', j:DBI, a:'2025', id:'2902704610', p:'' },
+      { n:'Carolina Jesselyn Wijaya', j:DBI, a:'2025', id:'2902621646', p:'' },
+      { n:'Mirafiori Regata', j:DBI, a:'2025', id:'2902568256', p:'' },
+      { n:'Refaiz Galih Diandra', j:DBI, a:'2025', id:'2902714201', p:'' },
+      { n:'Berliana Kayla Anastasya Al-Mi\'raj', j:DBI, a:'2025', id:'2902676550', p:'' },
+    ]],
+    ['Project Officer', [
+      { n:'Alif Sulaimana Mustang', j:DBI, a:'2024', id:'2802539261', p:'' },
+      { n:'Firmansyah Pratama Putra Johan', j:CRV, a:'2024', id:'2802481443', p:'' },
+      { n:'Delia Anandita Dwi Shafira R.', j:CRV, a:'2025', id:'2902587601', p:'' },
+      { n:'Andy Muhamad Pratama', j:DBI, a:'2025', id:'2902714290', p:'' },
+      { n:'Ghessa Syakheilla', j:DBI, a:'2025', id:'2902656694', p:'' },
+      { n:'Agisa Fawwazia Orvala', j:CRV, a:'2025', id:'2902676531', p:'' },
+      { n:'Jennifer Tanzino', j:CRV, a:'2025', id:'2902561792', p:'' },
+      { n:'Andrew Christopher', j:CRV, a:'2025', id:'2902574580', p:'' },
+      { n:'Jennifer Edwina Soewanto', j:DBI, a:'2025', id:'2902634352', p:'' },
+      { n:'Satria Pratama', j:DBI, a:'2025', id:'2902660022', p:'' },
+      { n:'Alleandro Al Rido', j:CRV, a:'2025', id:'2802408455', p:'' },
+      { n:'Fauzi Lukman Nurhakim', j:CRV, a:'2025', id:'2802458270', p:'' },
+      { n:'Rismauli Chelsea Putri Siburian', j:CRV, a:'2025', id:'2902768274', p:'' },
+      { n:'Sharla Arlyn Arletta', j:CRV, a:'2025', id:'2902624175', p:'' },
+    ]],
+    ['HRD', [
+      { n:'Axlsius Hwoarang', j:DBI, a:'2024', id:'2802416690', p:'' },
+      { n:'Shaumy Rashikafathi Indrakomara', j:CRV, a:'2025', id:'2902722443', p:'' },
+      { n:'Clay Cent', j:DBI, a:'2025', id:'2902637606', p:'' },
+      { n:'Nabila Fauziah Susento', j:CRV, a:'2025', id:'2902731265', p:'' },
+      { n:'Andrew Rizky Wijaya', j:CRV, a:'2025', id:'2902562366', p:'' },
+      { n:'Sazkya Auliya Badri', j:CRV, a:'2025', id:'2902699932', p:'' },
+      { n:'Esa Adzikra Putri H.', j:DBI, a:'2025', id:'2902563186', p:'' },
+      { n:'Felicia Tiffany Susanto', j:DBI, a:'2025', id:'2902569744', p:'' },
+      { n:'Jeanett Anastasia Christine', j:CRV, a:'2025', id:'2902574593', p:'' },
+    ]],
+    ['Business Development', [
+      { n:'Leonardo De Isal', j:DBI, a:'2024', id:'2802456454', p:'' },
+      { n:'Muhammad Alwy Aulia', j:DBI, a:'2024', id:'2802449700', p:'' },
+      { n:'Celine Jullietta Franssen', j:DBI, a:'2025', id:'2902699850', p:'' },
+      { n:'Salsabylla Marsya', j:CRV, a:'2025', id:'2902648244', p:'' },
+      { n:'Alisya Putri Salsabilla', j:CRV, a:'2025', id:'2902671404', p:'' },
+      { n:'Maximus Cedric Budiman', j:CRV, a:'2025', id:'2902568230', p:'' },
+      { n:'Fressza Guncy', j:CRV, a:'2025', id:'2902682641', p:'' },
+      { n:'M. Rizki Almaroshy', j:DBI, a:'2025', id:'2902710046', p:'' },
+      { n:'Erwin Nur Eriyawan', j:DBI, a:'2025', id:'2902700026', p:'' },
+      { n:'Eunike Olivia Gyantantri', j:DBI, a:'2025', id:'2802396700', p:'' },
+      { n:'Dave Jeremy Alexander', j:DBI, a:'2025', id:'2902581693', p:'' },
+    ]],
+  ];
+
+  const arrow = dir => dir === 'left'
+    ? '<svg width="13" height="13" viewBox="0 0 24 24"><polygon points="15,5 7,12 15,19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>'
+    : '<svg width="13" height="13" viewBox="0 0 24 24"><polygon points="9,5 17,12 9,19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+
+  const photoCell = s => '<img src="staff/' + s.id + '.webp" alt="' + s.n + '" loading="lazy" onerror="this.closest(\'.staff-photo\').classList.add(\'noimg\');this.remove();"><span class="staff-photo-ph">👤</span>';
+
+  divisiStaff.forEach(([divisi, staff], di) => {
+    const N = staff.length;
+    let cur = 0;
+
+    const card = document.createElement('div');
+    card.className = 'staff-card fade-in-up';
+    card.style.transitionDelay = (di % 3) * 0.08 + 's';
+    card.innerHTML =
+      '<div class="staff-card-divisi">' + divisi + '</div>' +
+      '<div class="staff-stage">' +
+        '<button class="staff-arrow left" aria-label="Geser kartu">' + arrow('left') + '</button>' +
+        '<button class="staff-arrow right" aria-label="Geser kartu">' + arrow('right') + '</button>' +
+      '</div>' +
+      '<div class="staff-dots"></div>';
+
+    const stage = card.querySelector('.staff-stage');
+    const dotsEl = card.querySelector('.staff-dots');
+
+    // build one mini-card + one dot per staff
+    const slides = staff.map((s, i) => {
+      const el = document.createElement('div');
+      el.className = 'staff-slide';
+      el.innerHTML =
+        '<div class="staff-photo">' + photoCell(s) + '</div>' +
+        '<div class="staff-name">' + s.n + '</div>' +
+        '<div class="staff-jurusan">' + s.j + '</div>' +
+        '<div class="staff-meta">B' + s.id.slice(0, 2) + ' · ' + s.id + '</div>';
+      stage.appendChild(el);
+
+      const d = document.createElement('button');
+      d.className = 'staff-dot';
+      d.setAttribute('aria-label', 'Staff ' + (i + 1));
+      d.addEventListener('click', () => { cur = i; layout(); });
+      dotsEl.appendChild(d);
+      return el;
+    });
+
+    // place every slide relative to the current one (current / prev / next / hidden)
+    function layout(init) {
+      slides.forEach((sl, i) => {
+        let d = ((i - cur) % N + N) % N;
+        if (d > N / 2) d -= N;
+        const cls = d === 0 ? 'sp-current' : d === 1 ? 'sp-next' : d === -1 ? 'sp-prev' : 'sp-hidden';
+        const old = sl.dataset.pos || '';
+        // a card wrapping straight from one side peek to the other shouldn't slide across — snap it
+        const cross = init || (old === 'sp-prev' && cls === 'sp-next') || (old === 'sp-next' && cls === 'sp-prev');
+        if (cross) sl.style.transition = 'none';
+        sl.classList.remove('sp-current', 'sp-next', 'sp-prev', 'sp-hidden');
+        sl.classList.add(cls);
+        sl.dataset.pos = cls;
+        if (cross) { void sl.offsetWidth; sl.style.transition = ''; }
+      });
+      Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('active', i === cur));
+    }
+
+    // ◁ : kartu kanan (berikutnya) maju ke depan, kartu depan geser ke kiri
+    card.querySelector('.staff-arrow.left').addEventListener('click', () => { cur = (cur + 1) % N; layout(); });
+    // ▷ : kartu kiri (sebelumnya) maju ke depan
+    card.querySelector('.staff-arrow.right').addEventListener('click', () => { cur = (cur - 1 + N) % N; layout(); });
+
+    grid.appendChild(card);
+    layout(true);
+  });
+})();
+
+/* ════════════════════════════════════
+   FOTO BAGAN ORGANISASI (dari NIM)
+   ════════════════════════════════════ */
+(function() {
+  const nimByName = {
+    'M. Athallah Nadhif Dinev': '2802556053',
+    'Zia Ariezka Imran': '2802551645',
+    'Belva Allya Zahra': '2802416186',
+    'Mohammad Kausar Lutfie': '2802544476',
+    'Naja Inayati Fasya': '2802551563',
+    'Alif Sulaimana Mustang': '2802539261',
+    'Firmansyah Pratama Putra Johan': '2802481443',
+    'Razzan Musyaffa Shaquile': '2802456574',
+    'Sabryna Dellya Putri': '2802456611',
+    'Ubay Manarul Hidayat': '2802539210',
+    'Shinta Wulansari': '2902714315',
+    'Axlsius Hwoarang': '2802416690',
+    'Shaumy Rashikafathi Indrakomara': '2902722443',
+    'Leonardo De Isal': '2802456454',
+    'Muhammad Alwy Aulia': '2802449700'
+  };
+  document.querySelectorAll('.oc-card').forEach(card => {
+    const nameEl = card.querySelector('.oc-nama');
+    const photo = card.querySelector('.oc-card-photo');
+    if (!nameEl || !photo) return;
+    const id = nimByName[nameEl.textContent.trim()];
+    if (!id) return;
+    photo.innerHTML = '<img src="staff/' + id + '.webp" alt="' + nameEl.textContent.trim() +
+      '" loading="lazy" onerror="this.replaceWith(document.createTextNode(\'👤\'))">';
+  });
+})();
+
+/* ════════════════════════════════════
+   SCROLL FADE-IN
+   ════════════════════════════════════ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.fade-in,.fade-in-left,.fade-in-right,.fade-in-up,.fade-in-scale').forEach(el => observer.observe(el));
+
+/* ════════════════════════════════════
+   THEME SWITCHER
+   ════════════════════════════════════ */
+function setTheme(t) {
+  document.body.setAttribute('data-theme', t);
+  localStorage.setItem('himpreneur-theme', t);
+  document.querySelectorAll('.theme-option').forEach(b => b.classList.remove('active'));
+  document.getElementById('theme-'+t)?.classList.add('active');
+  document.getElementById('theme-panel').classList.remove('open');
+}
+function toggleThemePanel() { document.getElementById('theme-panel').classList.toggle('open'); }
+const saved = localStorage.getItem('himpreneur-theme'); if (saved) setTheme(saved);
+document.addEventListener('click', e => {
+  if (!document.getElementById('theme-switcher').contains(e.target))
+    document.getElementById('theme-panel').classList.remove('open');
+});
+</script>
+</body>
+</html>
