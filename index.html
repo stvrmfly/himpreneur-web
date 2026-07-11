@@ -171,7 +171,7 @@ section{position:relative;overflow:hidden;}
 /* ── PILLARS ── */
 #pillars{background:var(--primary);position:relative;}
 .pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:60px;}
-.pillar-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);padding:40px 40px 36px;position:relative;overflow:hidden;transition:background 0.3s;display:flex;gap:28px;align-items:flex-start;}
+.pillar-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);padding:40px 40px 36px;position:relative;overflow:visible;transition:background 0.3s;display:flex;gap:28px;align-items:flex-start;}
 .pillar-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
 .pillar-card:hover{background:rgba(255,255,255,0.07);}
 .pillar-card:hover::before{transform:scaleX(1);}
@@ -179,9 +179,9 @@ section{position:relative;overflow:hidden;}
 .pillar-mascot img{width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3));transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);}
 .pillar-card:hover .pillar-mascot img{transform:translateY(-6px) scale(1.08);}
 /* Mascot tooltip speech bubble */
-.pillar-tooltip{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) scale(0.85);transform-origin:bottom center;background:rgba(10,22,40,0.95);border:1px solid rgba(201,169,110,0.3);color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-style:italic;padding:8px 12px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;z-index:10;backdrop-filter:blur(6px);}
-.pillar-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:rgba(10,22,40,0.95);}
-.pillar-card:hover .pillar-tooltip{opacity:1;transform:translateX(-50%) scale(1);}
+.pillar-tooltip{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(calc(-50% + 24px),0) scale(0.85);transform-origin:bottom center;background:rgba(10,22,40,0.95);border:1px solid rgba(201,169,110,0.3);color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-style:italic;padding:8px 12px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;z-index:10;backdrop-filter:blur(6px);}
+.pillar-tooltip::after{content:'';position:absolute;top:100%;left:calc(50% - 24px);transform:translateX(-50%);border:6px solid transparent;border-top-color:rgba(10,22,40,0.95);}
+.pillar-card:hover .pillar-tooltip{opacity:1;transform:translate(calc(-50% + 24px),0) scale(1);}
 .pillar-text{flex:1;}
 .pillar-number{font-family:'Bricolage Grotesque',serif;font-size:11px;font-weight:700;color:rgba(201,169,110,0.5);letter-spacing:3px;margin-bottom:6px;}
 .pillar-title{font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
