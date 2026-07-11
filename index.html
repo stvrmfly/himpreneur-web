@@ -20,7 +20,6 @@
   --shadow-lg:0 20px 60px rgba(10,22,40,0.16);--nav-bg:rgba(10,22,40,0.96);--hero-text:#FFFFFF;
 }
 [data-theme="maroon"]{--primary:#5a0a12;--primary-mid:#6B0D17;--primary-light:#8a1520;--accent:#C9A96E;--accent-light:#e0c898;--accent-dark:#9a7a45;--surface:#FFFEFC;--surface-warm:#F5F2F3;--surface-mid:#E9E2E4;--text-primary:#3a0808;--text-secondary:#6b2020;--text-muted:#8a4a3a;--border:rgba(90,10,18,0.12);--nav-bg:rgba(90,10,18,0.96);}
-[data-theme="white"]{--primary:#1B2A4A;--primary-mid:#243660;--primary-light:#2e4278;--accent:#C9A96E;--accent-light:#e0c898;--accent-dark:#9a7a45;--maroon:#6B0D17;--surface:#FFFFFF;--surface-warm:#FAFAFA;--surface-mid:#F5F5F5;--text-primary:#111827;--text-secondary:#374151;--text-muted:#4b5563;--border:rgba(0,0,0,0.1);--nav-bg:rgba(255,255,255,0.97);--hero-text:#1B2A4A;}
 
 /* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -79,14 +78,12 @@ h1,h2,h3{font-family:'Bricolage Grotesque',serif;line-height:1.2;}
 .nav-logo img{height:44px;width:auto;transition:all 0.3s;}
 .nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
 .nav-links a{font-size:13px;font-weight:500;letter-spacing:0.5px;color:rgba(255,255,255,0.85);transition:color 0.2s;position:relative;}
-[data-theme="white"] #navbar.scrolled .nav-links a{color:var(--text-secondary);}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width 0.3s;}
 .nav-links a:hover{color:var(--accent);}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
 .nav-links a.active{color:var(--accent);}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;}
 .hamburger span{display:block;width:24px;height:2px;background:var(--text-on-dark);border-radius:2px;transition:all 0.3s;}
-[data-theme="white"] #navbar.scrolled .hamburger span{background:var(--primary);}
 .mobile-nav{display:none;position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--primary);z-index:999;flex-direction:column;padding:80px 40px 40px;gap:28px;transition:right 0.4s;box-shadow:-8px 0 40px rgba(0,0,0,0.3);}
 .mobile-nav.open{right:0;}
 .mobile-nav a{font-family:'Bricolage Grotesque',serif;font-size:20px;color:var(--text-on-dark);border-bottom:0.5px solid rgba(255,255,255,0.1);padding-bottom:16px;transition:color 0.2s;}
@@ -198,6 +195,7 @@ section{position:relative;overflow:hidden;}
 .vm-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-ink);font-weight:600;margin-bottom:20px;}
 .vm-card h3{font-size:28px;color:var(--primary);margin-bottom:20px;}
 .vm-card p,.vm-card li{font-family:'Hanken Grotesk',sans-serif;font-size:17px;color:var(--text-secondary);line-height:1.8;}
+.vm-card p+p{margin-top:18px;}
 .vm-card ul{list-style:none;padding:0;}
 .vm-card ul li{padding:12px 0;border-bottom:0.5px solid var(--border);padding-left:20px;position:relative;}
 .vm-card ul li:last-child{border-bottom:none;}
@@ -362,10 +360,13 @@ section{position:relative;overflow:hidden;}
 /* ── RESPONSIVE ── */
 @media(max-width:860px){
   .oc-row-koor{--col-w:120px;gap:10px;}
+  /* reserve a uniform 3-line name block so every koordinator/wakil card is the same height,
+     whether the name wraps to 1, 2, or 3 lines */
+  .oc-card.oc-koor .oc-nama,.oc-card.oc-wakil .oc-nama{min-height:3.6em;}
 }
 @media(max-width:640px){
-  .org-chart-inner{min-width:560px;}
-  .oc-row-koor{--col-w:88px;gap:6px;}
+  .oc-row-koor{--col-w:112px;gap:8px;}
+  .org-chart-inner{min-width:712px;}
   .oc-card.oc-koor,.oc-card.oc-wakil{padding:10px 6px;}
   .oc-card.oc-koor .oc-divisi,.oc-card.oc-wakil .oc-divisi{font-size:8px;}
 }
@@ -532,7 +533,10 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
   .stats-grid{grid-template-columns:1fr;}
   .stat-card{border-right:none;border-bottom:0.5px solid rgba(201,169,110,0.15);}
   .stat-card:last-child{border-bottom:none;}
-  #stats{position:relative;}
+  /* let the hero grow instead of cramming content into a fixed 100vh (fixes slogan/stats overlap) */
+  #hero{height:auto;min-height:100vh;padding:110px 0 44px;}
+  .hero-content{margin-top:0;}
+  #stats{position:relative;margin-top:44px;}
   .mascot-parade{padding:12px 0 0;}
   .parade-mascot{width:64px;height:64px;}
   .clip-down,.clip-up,.clip-both{clip-path:none;margin:0;padding:100px 0!important;}
@@ -925,7 +929,8 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
       <div class="vm-card fade-in-left">
         <div class="vm-label">Vision</div>
         <h3>Visi</h3>
-        <p>Menjadi organisasi kreatif dan solid yang dapat menjadi sarana untuk menciptakan insan yang unggul, berkarakter, cerdas, dan kompetitif. HIMPRENEUR berfokus pada pengembangan kompetensi berwirausaha dan peningkatan relasi dengan pihak internal maupun eksternal. Organisasi ini berupaya memberikan kontribusi positif bagi masyarakat sekitar dengan menjunjung nilai-nilai budaya lokal Indonesia.</p>
+        <p>Menjadi organisasi kreatif dan solid yang dapat menjadi sarana untuk menciptakan insan yang unggul, berkarakter, cerdas, dan kompetitif.</p>
+        <p>HIMPRENEUR berfokus pada pengembangan kompetensi berwirausaha dan peningkatan relasi dengan pihak internal maupun eksternal. Organisasi ini berupaya memberikan kontribusi positif bagi masyarakat sekitar dengan menjunjung nilai-nilai budaya lokal Indonesia.</p>
       </div>
       <div class="vm-card fade-in-right">
         <div class="vm-label">Mission</div>
@@ -1128,7 +1133,6 @@ footer{background:#060e1a;padding:60px 40px 40px;position:relative;overflow:hidd
     <h4>Pilih Tema</h4>
     <button class="theme-option active" onclick="setTheme('navy')" id="theme-navy"><span class="theme-swatch" style="background:linear-gradient(135deg,#0A1628,#C9A96E)"></span>Navy + Gold</button>
     <button class="theme-option" onclick="setTheme('maroon')" id="theme-maroon"><span class="theme-swatch" style="background:linear-gradient(135deg,#6B0D17,#C9A96E)"></span>Maroon + Gold</button>
-    <button class="theme-option" onclick="setTheme('white')" id="theme-white"><span class="theme-swatch" style="background:linear-gradient(135deg,#f5f5f5,#1B2A4A)"></span>Light / White</button>
   </div>
   <button class="theme-toggle-btn" onclick="toggleThemePanel()" title="Ganti Tema" aria-label="Ganti Tema">🎨</button>
 </div>
@@ -1650,7 +1654,7 @@ function setTheme(t) {
   document.getElementById('theme-panel').classList.remove('open');
 }
 function toggleThemePanel() { document.getElementById('theme-panel').classList.toggle('open'); }
-const saved = localStorage.getItem('himpreneur-theme'); if (saved) setTheme(saved);
+const saved = localStorage.getItem('himpreneur-theme'); if (saved) setTheme(saved === 'white' ? 'navy' : saved);
 document.addEventListener('click', e => {
   if (!document.getElementById('theme-switcher').contains(e.target))
     document.getElementById('theme-panel').classList.remove('open');
